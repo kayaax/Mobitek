@@ -1,0 +1,6 @@
+﻿@model ProductDetailsModel
+<button type="button" value="@T("Products.EmailAFriend")" class="btn btn-outline-secondary email-a-friend-button d-flex align-items-center" onclick="setLocation('@Url.RouteUrl("ProductEmailAFriend", new { productId = Model.Id })')" title="@T("Products.EmailAFriend")">
+    <span class="lnr linearicons-paper-plane"></span>
+    <span class="btn-title">@T("Products.EmailAFriend")</span>
+    <span class="sr-only">@T("Products.EmailAFriend")</span>
+</button>

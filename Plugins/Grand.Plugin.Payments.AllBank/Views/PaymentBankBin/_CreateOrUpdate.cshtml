@@ -1,0 +1,68 @@
+﻿@model OmniBankBinModel
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+<div class="form-horizontal">
+    <div class="form-body">
+        <div class="form-group">
+            <admin-label asp-for="BinNumber" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="BinNumber" />
+                <span asp-validation-for="BinNumber"></span>
+            </div>
+        </div>
+         <div class="form-group">
+            <admin-label asp-for="BankName" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="BankName"  />
+                <span asp-validation-for="BankName"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="CardType" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="CardType"  />
+                <span asp-validation-for="CardType"></span>
+            </div>
+        </div>
+         <div class="form-group">
+            <admin-label asp-for="CardAssociation" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="CardAssociation"  />
+                <span asp-validation-for="CardAssociation"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="CardFamilyName" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="CardFamilyName" />
+                <span asp-validation-for="CardFamilyName"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="BankCode" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="BankCode" />
+                <span asp-validation-for="BankCode"></span>
+            </div>
+        </div>
+       <div class="form-group">
+            <admin-label asp-for="BusinessCard" />
+            <div class="col-md-9 col-sm-9">
+                <label class="mt-checkbox mt-checkbox-outline control control-checkbox">
+                    <admin-input asp-for="BusinessCard" />
+                    <div class="control__indicator"></div>
+                </label>
+                <span asp-validation-for="BusinessCard"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="Force3Ds" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="Force3Ds"  />
+                <span asp-validation-for="Force3Ds"></span>
+            </div>
+        </div>
+        
+    </div>
+</div>
+

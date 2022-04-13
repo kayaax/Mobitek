@@ -1,0 +1,62 @@
+﻿@model ProductDetailsModel
+<div class="row">
+    <div class="form-group col-12">
+        @if (Model.EndTime.HasValue)
+        {
+            <div class="countdown-box alert alert-info">
+                @if (Model.EndTime > DateTime.UtcNow)
+                {
+                    <countdown :end-time="@Model.EndTime.Value.ToUniversalTime().Subtract(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalMilliseconds">
+                        <template v-slot:process="{ timeObj }">
+                            <span class="col-form-label">@T("AddToCart.Timeleft"):</span>
+                            <span>{{ `${timeObj.d}` }} : </span>
+                            <span>{{ `${timeObj.h}` }} : </span>
+                            <span>{{ `${timeObj.m}` }} : </span>
+                            <span>{{ `${timeObj.s}` }}</span>
+                        </template>
+                        <template v-slot:finish>
+                            <span>@T("ShoppingCart.Auctionends")</span>
+                        </template>
+                    </countdown>
+                }
+                else
+                {
+                    <div class="d-inline-flex flex-wrap justify-content-center">
+                        <label class="ended-label mb-0">@T("ShoppingCart.Auctionends"):</label>
+                        <div class="count-date">@Model.EndTimeLocalTime.Value.ToString()</div>
+                    </div>
+                }
+            </div>
+        }
+        @if (Model.EndTime > DateTime.UtcNow)
+        {
+            <b-input-group class="product-add-to-cart flex-nowrap">
+                <div class="qty-controls">
+                    <div class="plus" onclick="increaseValue()"></div>
+                    <div class="minus" onclick="decreaseValue()"></div>
+                </div>
+                <input asp-for="HighestBidValue" type="text" class="qty-input form-control text-center" value="@(Model.HighestBidValue > 0 ? (Model.HighestBidValue + 1).ToString(System.Globalization.CultureInfo.InvariantCulture) : (Model.StartPrice + 1).ToString(System.Globalization.CultureInfo.InvariantCulture))" />
+                <b-input-group-append>
+                    <b-button variant="info" id="bid-button-@Model.Id" class="add-to-cart-button w-100 d-inline-flex align-items-center" data-productid="@Model.Id" onclick="AxiosCart.addbid('@Url.RouteUrl("AddBid", new { productId = Model.Id, shoppingCartTypeId = (int)ShoppingCartType.Auctions })', '#product-details-form'); return false;">
+                        <span>@T("ShoppingCart.Bid")</span>
+                    </b-button>
+                </b-input-group-append>
+            </b-input-group>
+            <script asp-location="Footer">
+                        function increaseValue() {
+                            var value = parseInt(document.getElementById("auction_@Model.Id"+"_HighestBidValue").value, 10);
+                            value = isNaN(value) ? 0 : value;
+                            value++;
+                            document.getElementById("auction_@Model.Id"+"_HighestBidValue").value = value;
+                        }
+                        function decreaseValue() {
+                            var value = parseInt(document.getElementById("auction_@Model.Id"+"_HighestBidValue").value, 10);
+                            value = isNaN(value) ? 0 : value;
+                            value < 2 ? value = 2 : '';
+                            value--;
+                            document.getElementById("auction_@Model.Id"+"_HighestBidValue").value = value;
+                        }
+            </script>
+        }
+    </div>
+</div>

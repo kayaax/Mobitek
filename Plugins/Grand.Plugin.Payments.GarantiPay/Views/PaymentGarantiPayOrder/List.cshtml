@@ -1,0 +1,106 @@
+﻿@using Grand.Domain.Common
+@using Grand.Web.Areas.Admin.Extensions
+@inject AdminAreaSettings adminAreaSettings
+@{ //page title
+    ViewBag.Title = T("Plugins.GarantiPay.Admin.BankOrder").Text;
+    // ReSharper disable once Razor.LayoutNotResolved
+    Layout = Constants.Layout_Admin; }
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel light form-fit">
+            <div class="x_title">
+                <div class="caption">
+                    <i class="fa fa-credit-card"></i>
+                    @T("Plugins.GarantiPay.Admin.BankOrder")
+                </div>
+
+            </div>
+            <div class="x_content form">
+                <div class="form-horizontal">
+                    <div class="form-body">
+                        <div class="x_content">
+                            <div id="bankOrder-grid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function () {
+    $("#bankOrder-grid").kendoGrid({
+        dataSource: {
+            transport: {
+                read: {
+                    url: "@Html.Raw(Url.Action("List", "PaymentGarantiPayOrder"))",
+                    type: "POST",
+                    dataType: "json",
+                    data: addAntiForgeryToken
+                }
+            },
+            schema: {
+                data: "Data",
+                total: "Total",
+                errors: "Errors"
+            },
+            error: function(e) {
+                display_kendoui_grid_error(e);
+                // Cancel the changes
+                this.cancelChanges();
+            },
+            pageSize: [@(adminAreaSettings.DefaultGridPageSize)],
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: true
+        },
+        pageable: {
+            refresh: true,
+            pageSizes: [@(adminAreaSettings.GridPageSizes)],
+            buttonCount: 15
+        },
+        editable: {
+            confirmation: false,
+            mode: "inline"
+        },
+        scrollable: false,
+        columns: [{
+            field: "CustomerEmail",
+            title: "@T("Plugins.GarantiPay.Admin.BankOrder.Field.CustomerEmail")",
+            template: '<a class="k-link" href="Edit/#=Id#">#=kendo.htmlEncode(CustomerEmail)#</a>'
+        },
+            {
+                field: "OrderGuid",
+            title: "@T("OrderGuid")"
+        },
+        {
+            field: "OrderNumber",
+            title: "@T("OrderNumber")"
+        },
+        {
+            field: "TransactionNumber",
+            title: "@T("TransactionNumber")"
+        },
+        {
+            field: "ReferenceNumber",
+            title: "@T("ReferenceNumber")"
+        },
+        {
+            field: "PaymentAmount",
+            title: "@T("PaymentAmount")"
+        },
+        {
+            field: "PaidDate",
+            title: "@T("PaidDate")"
+             
+        },
+        {
+            field: "PaymentResultSession",
+            title: "@T("PaymentResultSession")"
+
+        }]
+    });
+});
+</script>

@@ -1,0 +1,28 @@
+﻿@model Grand.Plugin.Payments.AllBank.Models.BankOrder.BankOrderModel
+@{
+    //page title
+    ViewBag.Title = T("Plugins.AllBank.Admin.BankOrder.EditBankOrderDetails").Text;
+    // ReSharper disable once Razor.LayoutNotResolved
+    Layout = "_ConfigurePlugin";
+}
+<form asp-area="@Constants.AreaAdmin" asp-controller="PaymentBankOrder" asp-action="Edit" method="post">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel light form-fit">
+                <div class="x_title">
+                    <div class="caption">
+                        <i class="fa fa-credit-card"></i>
+                        @T("Plugins.AllBank.Admin.BankOrder.EditBankOrderDetails") - @Model.CustomerEmail
+                        <small><i class="fa fa-arrow-circle-left"></i>@Html.ActionLink(T("Plugins.AllBank.Admin.BankOrder.BackToList").Text, "List") </small>
+                    </div>
+                </div>
+                <div class="x_content form">
+                    @* ReSharper disable once Mvc.PartialViewNotResolved *@
+                    <partial name="~/Plugins/Payments.AllBank/Views/PaymentBankOrder/_CreateOrUpdate.cshtml" model="Model" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

@@ -1,0 +1,160 @@
+﻿@model OmniBankPosListModel
+@inject AdminAreaSettings adminAreaSettings
+@{ //page title
+    ViewBag.Title = T("Plugins.AllBank.Admin.BankPos").Text;
+    // ReSharper disable once Razor.LayoutNotResolved
+   Layout = Constants.Layout_Admin; 
+}
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel light form-fit">
+            <div class="x_title">
+                <div class="caption">
+                    <i class="fa fa-cubes"></i>
+                    @T("Plugins.AllBank.Admin.BankPos")
+                </div>
+                <div class="actions btn-group btn-group-devided">
+                    <a href="@Url.Action("Create","PaymentBankPos")" class="btn green"><i class="fa fa-plus"></i><span class="d-none d-sm-inline"> @T("Admin.Common.AddNew") </span></a>
+                    <vc:admin-widget widget-zone="bank_pos_list_buttons" additional-data="null" />
+                </div>
+            </div>
+            <div class="x_content form">
+                <div class="form-horizontal">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <admin-label asp-for="SearchBankId" />
+                            <div class="col-md-9 col-sm-9">
+                                <admin-select asp-for="SearchBankId" asp-items="@Model.AvailableBankList" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <admin-label asp-for="SearchBankTypeId" />
+                            <div class="col-md-9 col-sm-9">
+                                <admin-select asp-for="SearchBankTypeId" asp-items="@Model.AvailableBankTypes" />
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="offset-md-3 offset-sm-3 col-md-9 col-sm-9">
+                                    <button  class="btn btn-success filter-submit" id="search-bank-pos">
+                                        <i class="fa fa-search"></i> @T("Admin.Common.Search")
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="x_content">
+                            <div id="bankPos-grid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#bankPos-grid").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "@Html.Raw(Url.Action("BankPosList", "PaymentBankPos"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: additionalData
+                    }
+                },
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    errors: "Errors"
+                },
+                error: function(e) {
+                    display_kendoui_grid_error(e);
+                    // Cancel the changes
+                    this.cancelChanges();
+                },
+                pageSize: [@(adminAreaSettings.DefaultGridPageSize)],
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true
+            },
+            pageable: {
+                refresh: true,
+                pageSizes: [@(adminAreaSettings.GridPageSizes)],
+                buttonCount: 15
+            },
+            editable: {
+                confirmation: false,
+                mode: "inline"
+            },
+            scrollable: false,
+            columns: [{
+                    field: "Name",
+                    title: "@T("Plugins.AllBank.Admin.BankPos.Fields.Name")",
+                    template: '<a class="k-link" href="Edit/#=Id#">#=kendo.htmlEncode(Name)#</a>',
+                },
+                {
+                    field: "BankTypeName",
+                    title: "@T("Plugins.AllBank.Admin.BankPos.Fields.BankName")"
+                },
+                {
+                    field: "PictureUrl",
+                    title: "@T("Plugins.AllBank.Admin.BankPos.Fields.BankBrand")",
+                    attributes: { style: "text-align:center" },
+                    template: '<img src="#=PictureUrl#"  width="50"/>'
+                },
+                {
+                    field: "IsActive",
+                    title: "@T("Plugins.AllBank.Admin.BankPos.Fields.IsActive")",
+                    headerAttributes: { style: "text-align:center" },
+                    attributes: { style: "text-align:center" },
+                    template: '# if(IsActive) {# <i class="fa fa-check" aria-hidden="true" style="color:green"></i> #} else {# <i class="fa fa-times" aria-hidden="true" style="color:red"></i> #} #'
+
+                },
+                {
+                    field: "PrimaryBank",
+                    title:"@T("Plugins.AllBank.Admin.BankPos.Fields.PrimaryBank")",
+                    headerAttributes: { style: "text-align:center" },
+                    attributes: { style: "text-align:center" },
+                    template: '# if(PrimaryBank) {# <i class="fa fa-check" aria-hidden="true" style="color:green"></i> #} else {# <i class="fa fa-times" aria-hidden="true" style="color:red"></i> #} #'
+                },
+                {
+                    field: "Primary",
+                    title:"@T("Plugins.AllBank.Admin.BankPos.Fields.Primary")",
+                    headerAttributes: { style: "text-align:center" },
+                    attributes: { style: "text-align:center" },
+                    template: '# if(Primary) {# <i class="fa fa-check" aria-hidden="true" style="color:green"></i> #} else {# <i class="fa fa-times" aria-hidden="true" style="color:red"></i> #} #'
+                }]
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+            //search button
+        $('#search-bank-pos').click(function () {
+            //search
+            var grid = $('#bankPos-grid').data('kendoGrid');
+            grid.dataSource.page(1); //new search. Set page size to 1
+            //grid.dataSource.read(); we already loaded the grid above using "page" function
+            return false;
+        });
+
+        $("#@Html.FieldIdFor(model => model.SearchBankId)").keydown(function (event) {
+            if (event.keyCode == 13) {
+                $("#search-bank-pos").click();
+                return false;
+            }
+        });
+    });
+
+    function additionalData() {
+        var data = {
+            SearchBankId: $('#@Html.FieldIdFor(model => model.SearchBankId)').val(),
+            SearchBankTypeId:$('#@Html.FieldIdFor(model => model.SearchBankTypeId)').val()
+        };
+        addAntiForgeryToken(data);
+        return data;
+    }
+</script>

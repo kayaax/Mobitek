@@ -1,0 +1,64 @@
+﻿@model NewsItemListModel
+@inject IWorkContext workContext
+@inject IThemeContext themeContext
+@inject IPageHeadBuilder pagebuilder
+@{
+    Layout = "_ColumnsTwo";
+
+    //title
+    pagebuilder.AddTitleParts(T("PageTitle.NewsArchive").Text);
+
+    var supportRtl = workContext.WorkingLanguage.Rtl;
+    var themeName = themeContext.WorkingThemeName;
+
+    if (supportRtl)
+    {
+        pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/blog-news/blog-news.rtl.css", themeName));
+    }
+    else
+    {
+        pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/blog-news/blog-news.css", themeName));
+    }
+}
+<div class="page news-list-page">
+    <h1 class="generalTitle h2"><a href="@Url.RouteUrl("NewsRSS", new { languageId = Model.WorkingLanguageId })" class="btn btn-sm btn-outline-info link-rss" title="@T("News.RSS.Hint")">@T("News.RSS")</a> @T("News")</h1>
+    @await Component.InvokeAsync("Widget", new { widgetZone = "newslist_page_before_items" })
+
+    <b-row class="news-items row">
+        @foreach (var item in Model.NewsItems)
+        {
+            <b-col xl="6" cols="12" class="col-xl-6 col-12">
+                <b-card class="post-news mb-3">
+                    <template v-slot:header>
+                        @if (!string.IsNullOrEmpty(item.PictureModel.ImageUrl))
+                        {
+                            <b-link class="img-container">
+                                <img src="@item.PictureModel.ImageUrl" alt="@item.PictureModel.AlternateText" />
+                            </b-link>
+                        }
+                        <h3 class="h5 title">
+                            <b-link href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })">
+                                @item.Title
+                            </b-link>
+                        </h3>
+                        <div class="date">
+                            @item.CreatedOn.ToString("D")
+                        </div>
+                    </template>
+                    <b-card-text>
+                        <div class="short">
+                            @Html.Raw(item.Short)
+                        </div>
+                    </b-card-text>
+                    <div class="buttons mt-3">
+                        <a class="btn btn-outline-secondary read-more" href="@Url.RouteUrl("NewsItem", new { SeName = item.SeName })">@T("News.MoreInfo")</a>
+                    </div>
+                </b-card>
+            </b-col>
+        }
+        <page-navigation asp-query-param="pagenumber" asp-pagination="Model.PagingFilteringContext" />
+
+        @await Component.InvokeAsync("Widget", new { widgetZone = "newslist_page_after_items" })
+    </b-row>
+
+</div>

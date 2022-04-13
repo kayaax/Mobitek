@@ -1,0 +1,15 @@
+﻿<template v-if="hpi.HomePageItems[0].HomePageCategories.loading">
+    <b-skeleton animation="fade" height="450px"></b-skeleton>
+</template>
+<div v-else-if="hpi.HomePageItems[0].HomePageCategories.items[0] !== undefined" id="HomePageCategories">
+    <div class="section">
+        <b-col cols="12" class="px-0">
+            <div class="cat-gallery">
+                <a class="gallery-item" :href="'/' + Model.SeName" v-for="Model in hpi.HomePageItems[0].HomePageCategories.items">
+                    <img :src="Model.PictureModel.FullSizeImageUrl" :alt="Model.PictureModel.Title" class="gallery-img">
+                    <h3>{{Model.Name}}</h3>
+                </a>
+            </div>
+        </b-col>
+    </div>
+</div>

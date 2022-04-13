@@ -1,0 +1,73 @@
+﻿@inject IWorkContext workContext
+@inject IThemeContext themeContext
+@inject IPageHeadBuilder pagebuilder
+
+@{
+    var supportRtl = workContext.WorkingLanguage.Rtl;
+    var themeName = themeContext.WorkingThemeName;
+
+    if (supportRtl)
+    {
+        pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/blog-news/blog-news.rtl.css", themeName));
+    }
+    else
+    {
+        pagebuilder.AppendCssFileParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/css/blog-news/blog-news.css", themeName));
+    }
+}
+<template v-if="hpi.HomePageItems[0].HomePageNews.loading">
+    <b-skeleton animation="fade" height="55px"></b-skeleton>
+    <b-col cols="12" class="mt-3 px-0">
+        <div class="item-row">
+            <b-col xl="3" lg="4" md="6" sm="6" cols="12">
+                <b-skeleton-img animation="fade" height="450px"></b-skeleton-img>
+            </b-col>
+            <b-col xl="3" lg="4" md="6" sm="6" cols="12" class="d-sm-block d-none">
+                <b-skeleton-img animation="fade" height="450px"></b-skeleton-img>
+            </b-col>
+            <b-col xl="3" lg="4" md="6" sm="6" cols="12" class="d-lg-block d-none">
+                <b-skeleton-img animation="fade" height="450px"></b-skeleton-img>
+            </b-col>
+            <b-col xl="3" lg="4" md="6" sm="6" cols="12" class="d-xl-block d-none">
+                <b-skeleton-img animation="fade" height="450px"></b-skeleton-img>
+            </b-col>
+        </div>
+    </b-col>
+</template>
+<div v-else-if="hpi.HomePageItems[0].HomePageNews.items.NewsItems !== undefined" id="HomePageNews" class="section">
+    <div class="product-grid">
+        <h2 class="generalTitle text-center"><span>@T("News")</span></h2>
+        <b-col cols="12" class="px-0">
+            <div class="item-row">
+                <b-col xl="4" lg="4" md="6" sm="6" cols="12" v-for="Item in hpi.HomePageItems[0].HomePageNews.items.NewsItems" class="post-container mb-2">
+                    <b-card class="post-news">
+                        <template v-slot:header>
+                            <b-link class="img-container" v-if="Item.PictureModel !== null && Item.PictureModel.ImageUrl !== undefined">
+                                <img :src="Item.PictureModel.ImageUrl" :alt="Item.PictureModel.AlternateText" />
+                            </b-link>
+                            <h3 class="h5 title">
+                                <b-link :href="'/' + Item.SeName">
+                                    {{Item.Title}}
+                                </b-link>
+                            </h3>
+                            <div class="date">
+                                <div class="day part" v-html="new Date(Item.CreatedOn).getUTCDate()"></div>
+                                <div class="month part" v-html="new Date(Item.CreatedOn).toLocaleString('default', { month: 'long' })"></div>
+                                <div class="year part" v-html="new Date(Item.CreatedOn).getUTCFullYear()"></div>
+                            </div>
+                        </template>
+                        <div class="short" v-html="Item.Short"></div>
+                        <template v-slot:footer>
+                            <b-button :href="'/' + Item.SeName" variant="outline-secondary">
+                                @T("minimal.blog.readmore")
+                            </b-button>
+                        </template>
+                    </b-card>
+                </b-col>
+            </div>
+            <div class="mt-3 w-100 text-center">
+                <b-button variant="outline-secondary" href="@Url.RouteUrl("NewsArchive")">@T("News.ViewAll")</b-button>
+            </div>
+        </b-col>
+    </div>
+</div>

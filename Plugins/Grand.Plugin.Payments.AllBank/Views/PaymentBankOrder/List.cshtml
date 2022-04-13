@@ -1,0 +1,121 @@
+﻿@model Grand.Plugin.Payments.AllBank.Models.BankOrder.BankOrderListModel
+@inject AdminAreaSettings adminAreaSettings
+@{ //page title
+    ViewBag.Title = T("Plugins.AllBank.Admin.BankOrder").Text;
+    // ReSharper disable once Razor.LayoutNotResolved
+    Layout = Constants.Layout_Admin; }
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel light form-fit">
+            <div class="x_title">
+                <div class="caption">
+                    <i class="fa fa-credit-card"></i>
+                    @T("Plugins.AllBank.Admin.BankOrder")
+                </div>
+
+            </div>
+            <div class="x_content form">
+                <div class="form-horizontal">
+                    <div class="form-body">
+                        <div class="form-group">
+                            <admin-label asp-for="SearchCustomerId" />
+                            <div class="col-md-9 col-sm-9">
+                                <admin-select asp-for="SearchCustomerId" asp-items="@Model.AvailableCustomers" />
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="offset-md-3 offset-sm-3 col-md-9 col-sm-9">
+                                    <button class="btn btn-success filter-submit" id="search-bank-order">
+                                        <i class="fa fa-search"></i> @T("Admin.Common.Search")
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="x_content">
+                            <div id="bankOrder-grid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function () {
+    $("#bankOrder-grid").kendoGrid({
+        dataSource: {
+            transport: {
+                read: {
+                    url: "@Html.Raw(Url.Action("List", "PaymentBankOrder"))",
+                    type: "POST",
+                    dataType: "json",
+                    data: addAntiForgeryToken
+                }
+            },
+            schema: {
+                data: "Data",
+                total: "Total",
+                errors: "Errors"
+            },
+            error: function(e) {
+                display_kendoui_grid_error(e);
+                // Cancel the changes
+                this.cancelChanges();
+            },
+            pageSize: [@(adminAreaSettings.DefaultGridPageSize)],
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: true
+        },
+        pageable: {
+            refresh: true,
+            pageSizes: [@(adminAreaSettings.GridPageSizes)],
+            buttonCount: 15
+        },
+        editable: {
+            confirmation: false,
+            mode: "inline"
+        },
+        scrollable: false,
+        columns: [{
+            field: "CustomerEmail",
+            title: "@T("Plugins.AllBank.Admin.BankOrder.Field.CustomerEmail")",
+            template: '<a class="k-link" href="Edit/#=Id#">#=kendo.htmlEncode(CustomerEmail)#</a>'
+        },
+            {
+                field: "OrderGuid",
+            title: "@T("OrderGuid")"
+        },
+        {
+            field: "OrderNumber",
+            title: "@T("OrderNumber")"
+        },
+        {
+            field: "TransactionNumber",
+            title: "@T("TransactionNumber")"
+        },
+        {
+            field: "ReferenceNumber",
+            title: "@T("ReferenceNumber")"
+        },
+        {
+            field: "PaymentAmount",
+            title: "@T("PaymentAmount")"
+        },
+        {
+            field: "PaidDate",
+            title: "@T("PaidDate")"
+             
+        },
+        {
+            field: "PaymentResultSession",
+            title: "@T("PaymentResultSession")"
+
+        }]
+    });
+});
+</script>

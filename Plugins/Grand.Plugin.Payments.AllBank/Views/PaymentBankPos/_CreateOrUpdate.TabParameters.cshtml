@@ -1,0 +1,467 @@
+﻿@model OmniBankPosModel
+@if (!string.IsNullOrEmpty(Model.Id))
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-horizontal">
+                <div class="form-body">
+                    @switch (Model.SystemName)
+                    {
+                        case "AkBank":
+                        case "IsBankasi":
+                        case "HalkBank":
+                        case "ZiraatBankasi":
+                        case "TurkEkonomiBankasi":
+                        case "IngBank":
+                        case "AnadoluBank":
+                        case "HSBC":
+                        case "TurkiyeFinans":
+                        case "SekerBank":
+                            <text>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.NestPayModel.ClientId" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.NestPayModel.ClientId" />
+                                        <span asp-validation-for="@Model.ParameterModel.NestPayModel.ClientId"></span>
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.NestPayModel.UserName" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.NestPayModel.UserName" />
+                                        <span asp-validation-for="@Model.ParameterModel.NestPayModel.UserName"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.NestPayModel.Password" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.NestPayModel.Password" />
+                                        <span asp-validation-for="@Model.ParameterModel.NestPayModel.Password"></span>
+                                    </div>
+                                </div>                               
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.NestPayModel.StoreKey" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.NestPayModel.StoreKey" />
+                                        <span asp-validation-for="@Model.ParameterModel.NestPayModel.StoreKey"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.NestPayModel.StoreType" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.NestPayModel.StoreType" />
+                                        <span asp-validation-for="@Model.ParameterModel.NestPayModel.StoreType"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.NestPayModel.GatewayUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.NestPayModel.GatewayUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.NestPayModel.GatewayUrl"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.NestPayModel.VerifyUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.NestPayModel.VerifyUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.NestPayModel.VerifyUrl"></span>
+                                    </div>
+                                </div>
+                            </text>
+                            break;
+                        case "DenizBank":
+                            <text>
+
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.DenizBankModel.ShopCode" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.DenizBankModel.ShopCode" />
+                                        <span asp-validation-for="@Model.ParameterModel.DenizBankModel.ShopCode"></span>
+                                    </div>
+                                </div>
+                                  <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.DenizBankModel.UserCode" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.DenizBankModel.UserCode" />
+                                        <span asp-validation-for="@Model.ParameterModel.DenizBankModel.UserCode"></span>
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.DenizBankModel.UserPass" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.DenizBankModel.UserPass" />
+                                        <span asp-validation-for="@Model.ParameterModel.DenizBankModel.UserPass"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.DenizBankModel.StoreKey" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.DenizBankModel.StoreKey" />
+                                        <span asp-validation-for="@Model.ParameterModel.DenizBankModel.StoreKey"></span>
+                                    </div>
+                                </div>        
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.DenizBankModel.GatewayUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.DenizBankModel.GatewayUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.DenizBankModel.GatewayUrl"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.DenizBankModel.VerifyUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.DenizBankModel.VerifyUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.DenizBankModel.VerifyUrl"></span>
+                                    </div>
+                                </div>
+                            </text>
+                            break;
+                        case "FinansBank":
+                            <text>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.FinansBankModel.MbrId" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.FinansBankModel.MbrId" />
+                                        <span asp-validation-for="@Model.ParameterModel.FinansBankModel.MbrId"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.FinansBankModel.MerchantId" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.FinansBankModel.MerchantId" />
+                                        <span asp-validation-for="@Model.ParameterModel.FinansBankModel.MerchantId"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.FinansBankModel.UserCode" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.FinansBankModel.UserCode" />
+                                        <span asp-validation-for="@Model.ParameterModel.FinansBankModel.UserCode"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.FinansBankModel.UserPass" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.FinansBankModel.UserPass" />
+                                        <span asp-validation-for="@Model.ParameterModel.FinansBankModel.UserPass"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.FinansBankModel.MerchantPass " />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.FinansBankModel.MerchantPass " />
+                                        <span asp-validation-for="@Model.ParameterModel.FinansBankModel.MerchantPass "></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.FinansBankModel.GatewayUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.FinansBankModel.GatewayUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.FinansBankModel.GatewayUrl"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.FinansBankModel.VerifyUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.FinansBankModel.VerifyUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.FinansBankModel.VerifyUrl"></span>
+                                    </div>
+                                </div>
+                            </text>
+                            break;
+                        case "Garanti":
+                            <text>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.GarantiBankModel.TerminalId" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.GarantiBankModel.TerminalId" />
+                                        <span asp-validation-for="@Model.ParameterModel.GarantiBankModel.TerminalId"></span>
+                                    </div>
+                                </div>
+                                  <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.GarantiBankModel.TerminalUserId" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.GarantiBankModel.TerminalUserId" />
+                                        <span asp-validation-for="@Model.ParameterModel.GarantiBankModel.TerminalUserId"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.GarantiBankModel.TerminalMerchantId" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.GarantiBankModel.TerminalMerchantId" />
+                                        <span asp-validation-for="@Model.ParameterModel.GarantiBankModel.TerminalMerchantId"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.GarantiBankModel.TerminalProvPassword" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.GarantiBankModel.TerminalProvPassword" />
+                                        <span asp-validation-for="@Model.ParameterModel.GarantiBankModel.TerminalProvPassword"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.GarantiBankModel.TerminalProvUserId" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.GarantiBankModel.TerminalProvUserId" />
+                                        <span asp-validation-for="@Model.ParameterModel.GarantiBankModel.TerminalProvUserId"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.GarantiBankModel.Email" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.GarantiBankModel.Email" />
+                                        <span asp-validation-for="@Model.ParameterModel.GarantiBankModel.Email"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.GarantiBankModel.CompanyName" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.GarantiBankModel.CompanyName" />
+                                        <span asp-validation-for="@Model.ParameterModel.GarantiBankModel.CompanyName"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.GarantiBankModel.StoreKey" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.GarantiBankModel.StoreKey" />
+                                        <span asp-validation-for="@Model.ParameterModel.GarantiBankModel.StoreKey"></span>
+                                    </div>
+                                </div>
+                              
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.GarantiBankModel.GatewayUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.GarantiBankModel.GatewayUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.GarantiBankModel.GatewayUrl"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.GarantiBankModel.VerifyUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.GarantiBankModel.VerifyUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.GarantiBankModel.VerifyUrl"></span>
+                                    </div>
+                                </div>
+                            </text>
+                            break;
+                        case "KuveytTurk":
+                            <text>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.KuveytTurkModel.MerchantId" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.KuveytTurkModel.MerchantId" />
+                                        <span asp-validation-for="@Model.ParameterModel.KuveytTurkModel.MerchantId"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.KuveytTurkModel.UserName" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.KuveytTurkModel.UserName" />
+                                        <span asp-validation-for="@Model.ParameterModel.KuveytTurkModel.UserName"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.KuveytTurkModel.Password" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.KuveytTurkModel.Password" />
+                                        <span asp-validation-for="@Model.ParameterModel.KuveytTurkModel.Password"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.KuveytTurkModel.GatewayUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.KuveytTurkModel.GatewayUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.KuveytTurkModel.GatewayUrl"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.KuveytTurkModel.VerifyUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.KuveytTurkModel.VerifyUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.KuveytTurkModel.VerifyUrl"></span>
+                                    </div>
+                                </div>
+                            </text>
+                            break;
+                        case "VakifBank":
+                            <text>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.VakıfBankModel.MerchantId" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.VakıfBankModel.MerchantId" />
+                                        <span asp-validation-for="@Model.ParameterModel.VakıfBankModel.MerchantId"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.VakıfBankModel.Password" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.VakıfBankModel.Password" />
+                                        <span asp-validation-for="@Model.ParameterModel.VakıfBankModel.Password"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.VakıfBankModel.TerminalNo" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.VakıfBankModel.TerminalNo" />
+                                        <span asp-validation-for="@Model.ParameterModel.VakıfBankModel.TerminalNo"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.VakıfBankModel.EnrollmentUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.VakıfBankModel.EnrollmentUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.VakıfBankModel.EnrollmentUrl"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.VakıfBankModel.VerifyUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.VakıfBankModel.VerifyUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.VakıfBankModel.VerifyUrl"></span>
+                                    </div>
+                                </div>
+                            </text>
+                            break;
+                        case "Yapikredi":
+                        case "Albaraka":
+                            <text>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.YapıKrediBankModel.MerchantId" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.YapıKrediBankModel.MerchantId" />
+                                        <span asp-validation-for="@Model.ParameterModel.YapıKrediBankModel.MerchantId"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.YapıKrediBankModel.TerminalId" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.YapıKrediBankModel.TerminalId" />
+                                        <span asp-validation-for="@Model.ParameterModel.YapıKrediBankModel.TerminalId"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.YapıKrediBankModel.PosNetId" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.YapıKrediBankModel.PosNetId" />
+                                        <span asp-validation-for="@Model.ParameterModel.YapıKrediBankModel.PosNetId"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.YapıKrediBankModel.GatewayUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.YapıKrediBankModel.GatewayUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.YapıKrediBankModel.GatewayUrl"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.YapıKrediBankModel.VerifyUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.YapıKrediBankModel.VerifyUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.YapıKrediBankModel.VerifyUrl"></span>
+                                    </div>
+                                </div>
+                            </text>
+                            break;
+                        case "Iyzico":
+                            <text>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.IyzicoBankModel.ApiKey" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.IyzicoBankModel.ApiKey" />
+                                        <span asp-validation-for="@Model.ParameterModel.IyzicoBankModel.ApiKey"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.IyzicoBankModel.SecretKey" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.IyzicoBankModel.SecretKey" />
+                                        <span asp-validation-for="@Model.ParameterModel.IyzicoBankModel.SecretKey"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.IyzicoBankModel.ApiUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.IyzicoBankModel.ApiUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.IyzicoBankModel.ApiUrl"></span>
+                                    </div>
+                                </div>
+                            </text>
+                            break;
+                        case "IPara":
+                            <text>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.ParaPayModel.PublicKey" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.ParaPayModel.PublicKey" />
+                                        <span asp-validation-for="@Model.ParameterModel.ParaPayModel.PublicKey"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.ParaPayModel.PrivateKey" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.ParaPayModel.PrivateKey" />
+                                        <span asp-validation-for="@Model.ParameterModel.ParaPayModel.PrivateKey"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.ParaPayModel.BaseUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.ParaPayModel.BaseUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.ParaPayModel.BaseUrl"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.ParaPayModel.ThreeDInquiryUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.ParaPayModel.ThreeDInquiryUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.ParaPayModel.ThreeDInquiryUrl"></span>
+                                    </div>
+                                </div>
+                            </text>
+                            break;
+                        case "PayTr":
+                            <text>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.PayTrModel.MerchantId" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.PayTrModel.MerchantId" />
+                                        <span asp-validation-for="@Model.ParameterModel.PayTrModel.MerchantId"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.PayTrModel.MerchantKey" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.PayTrModel.MerchantKey" />
+                                        <span asp-validation-for="@Model.ParameterModel.PayTrModel.MerchantKey"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.PayTrModel.MerchantSalt" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.PayTrModel.MerchantSalt" />
+                                        <span asp-validation-for="@Model.ParameterModel.PayTrModel.MerchantSalt"></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <admin-label asp-for="@Model.ParameterModel.PayTrModel.GatewayUrl" />
+                                    <div class="col-md-9 col-sm-9">
+                                        <admin-input asp-for="@Model.ParameterModel.PayTrModel.GatewayUrl" />
+                                        <span asp-validation-for="@Model.ParameterModel.PayTrModel.GatewayUrl"></span>
+                                    </div>
+                                </div>
+                            </text>
+                            break;
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="note note-info">
+        @T("Plugins.AllBank.Admin.BankPos.SaveBeforeEdit")
+    </div>
+
+}

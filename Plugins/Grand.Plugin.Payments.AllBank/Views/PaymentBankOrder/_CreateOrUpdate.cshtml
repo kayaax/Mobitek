@@ -1,0 +1,128 @@
+﻿@model Grand.Plugin.Payments.AllBank.Models.BankOrder.BankOrderModel
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+<div class="form-horizontal">
+    <div class="form-body">
+        <div class="form-group">
+            <admin-label asp-for="CustomerEmail" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="CustomerEmail" />
+                <span asp-validation-for="CustomerEmail"></span>
+            </div>
+        </div>
+         <div class="form-group">
+            <admin-label asp-for="OrderGuid" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="OrderGuid"  />
+                <span asp-validation-for="OrderGuid"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="OrderNumber" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="OrderNumber"  />
+                <span asp-validation-for="OrderNumber"></span>
+            </div>
+        </div>
+         <div class="form-group">
+            <admin-label asp-for="Hash" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="Hash"  />
+                <span asp-validation-for="Hash"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="Token" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="Token" />
+                <span asp-validation-for="Token"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="TransactionNumber" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="TransactionNumber" />
+                <span asp-validation-for="TransactionNumber"></span>
+            </div>
+        </div>
+       <div class="form-group">
+            <admin-label asp-for="StatusId" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="StatusId" />
+                <span asp-validation-for="StatusId"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="TotalAmount" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="TotalAmount"  />
+                <span asp-validation-for="TotalAmount"></span>
+            </div>
+        </div> 
+        <div class="form-group">
+            <admin-label asp-for="PaymentAmount" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="PaymentAmount"  />
+                <span asp-validation-for="PaymentAmount"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="BankErrorMessage" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="BankErrorMessage"  />
+                <span asp-validation-for="BankErrorMessage"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="CreateDate" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="CreateDate"  />
+                <span asp-validation-for="CreateDate"></span>
+            </div>
+        </div>
+         <div class="form-group">
+            <admin-label asp-for="Deleted" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="Deleted"  />
+                <span asp-validation-for="Deleted"></span>
+            </div>
+         </div> 
+        <div class="form-group">
+            <admin-label asp-for="PaymentInfoSession" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="PaymentInfoSession"  />
+                <span asp-validation-for="PaymentInfoSession"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="PaymentResultSession" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="PaymentResultSession"  />
+                <span asp-validation-for="PaymentResultSession"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="BankRequest" />
+            <div class="col-md-9 col-sm-9">
+                <admin-textarea asp-for="BankRequest"  />
+                <span asp-validation-for="BankRequest"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="BankResponse" />
+            <div class="col-md-9 col-sm-9">
+                <admin-textarea asp-for="BankResponse"  />
+                <span asp-validation-for="BankResponse"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="PaymentInfo" />
+            <div class="col-md-9 col-sm-9">
+                <admin-textarea asp-for="PaymentInfo"  />
+                <span asp-validation-for="PaymentInfo"></span>
+            </div>
+        </div>
+        
+    </div>
+</div>
+

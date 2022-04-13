@@ -1,0 +1,23 @@
+﻿<div v-if="vmorder.Confirm" class="checkout-data order-summary-content col-12 px-0">
+    @await Component.InvokeAsync("Widget", new { widgetZone = "op_checkout_confirm_top" })
+    <div class="order-summary">
+        <partial name="OrderSummary" model="null" />
+    </div>
+    <div class="order-totals">
+        <partial name="OrderTotals" />
+    </div>
+    <div class="confirm-order">
+        <div v-if="vmorder.MinOrderTotalWarning !== null">
+            <div class="alert alert-danger my-3">
+                {{vmorder.MinOrderTotalWarning}}
+            </div>
+        </div>
+        <div v-if="vmorder.ConfirmWarnings !== 'undefined' && vmorder.ConfirmWarnings.length > 0" class="alert alert-danger my-3">
+            <template v-for="warning in vmorder.ConfirmWarnings">
+                <span>{{warning}}</span>
+            </template>
+        </div>
+    </div>
+    <input type="hidden" @@click="vmorder.showMsgBoxOne" id="hidden_confirm"/>
+    @await Component.InvokeAsync("Widget", new { widgetZone = "op_checkout_confirm_bottom" })
+</div>

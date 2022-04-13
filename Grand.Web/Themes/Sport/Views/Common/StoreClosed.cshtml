@@ -1,0 +1,15 @@
+﻿@inject IPageHeadBuilder pagebuilder
+@{
+    Layout = "_ColumnsOne";
+
+    //title
+    pagebuilder.AddTitleParts(T("PageTitle.StoreClosed").Text);
+}
+<div class="page store-closed-page d-flex justify-content-center flex-column align-items-center">
+    <div class="container-fluid">
+        <h2 class="h2 generalTitle page-title text-center">@T("StoreClosed")</h2>
+        <div class="no-data">
+            @T("StoreClosed.Hint")
+        </div>
+    </div>
+</div>

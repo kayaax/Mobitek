@@ -1,0 +1,34 @@
+﻿@model OmniBankBinModel
+@{
+    //page title
+    ViewBag.Title = T("Plugins.AllBank.Admin.BankBin.AddNew").Text;
+    // ReSharper disable once Razor.LayoutNotResolved
+    Layout = "_ConfigurePlugin";
+}
+<form asp-area="@Constants.AreaAdmin" asp-controller="PaymentBankBin" asp-action="Create" method="post">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel light form-fit">
+                <div class="x_title">
+                    <div class="caption">
+                        <i class="fa fa-credit-card"></i>
+                        @T("Plugins.AllBank.Admin.BankBin.AddNew")
+                        <small><i class="fa fa-arrow-circle-left"></i>@Html.ActionLink(T("Plugins.AllBank.Admin.BankBin.BackToList").Text, "List") </small>
+                    </div>
+                    <div class="actions">
+                        <div class="btn-group btn-group-devided">
+                            <button class="btn btn-success" type="submit" name="save"><i class="fa fa-check"></i> @T("Admin.Common.Save") </button>
+                            <button class="btn btn-success" type="submit" name="save-continue"><i class="fa fa-check-circle"></i> @T("Admin.Common.SaveContinue") </button>
+                            <vc:admin-widget widget-zone="bank_bin_details_buttons" additional-data="null" />
+                        </div>
+                    </div>
+                </div>
+                <div class="x_content form">
+                    @* ReSharper disable once Mvc.PartialViewNotResolved *@
+                    <partial name="~/Plugins/Payments.AllBank/Views/PaymentBankBin/_CreateOrUpdate.cshtml" model="Model" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

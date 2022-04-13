@@ -1,0 +1,42 @@
+﻿@model HeaderLinksModel
+@using System.Text.Encodings.Web
+@{
+    var registerUrl = Url.RouteUrl("Register", new { returnUrl = this.Context.Request.Query["returnUrl"] });
+}
+
+@await Component.InvokeAsync("Widget", new { widgetZone = "header_links_before" })
+<div>
+    @if (Model.IsAuthenticated)
+    {
+        @await Component.InvokeAsync("AdminHeaderLinks")
+            <b-button variant="outline-secondary" class="d-flex align-items-center justify-content-center py-2 w-100 mb-2" href="@Url.RouteUrl("CustomerInfo")">
+                <span class="icons icon-user"></span>
+                <span class="text text-uppercase ml-3">@T("Account.MyAccount")</span>
+            </b-button>
+            <b-button variant="outline-secondary" class="d-flex align-items-center justify-content-center py-2 w-100 mb-2" href="@Url.RouteUrl("CustomerOrders")">
+                <span class="icons icon-bag"></span>
+                <span class="text text-uppercase ml-3">@T("Account.CustomerOrders")</span>
+            </b-button>
+            <b-button variant="outline-secondary" class="d-flex align-items-center justify-content-center py-2 w-100 mb-2" href="@Url.RouteUrl("Logout")">
+                <span class="icons icon-lock"></span>
+                <span class="text text-uppercase ml-3">@T("Account.Logout")</span>
+            </b-button>
+    }
+    else
+    {
+            <h5 class="d-flex justify-content-center mb-3 w-100">@T("Account.Login.ReturningCustomer") / @T("SideBar.NewCustomer")</h5>
+            <div class="d-inline-flex flex-sm-nowrap flex-wrap w-100">
+                <b-button variant="outline-secondary" class="d-flex align-items-center justify-content-center py-2 w-100 mx-1 mb-2" href="@Url.RouteUrl("Login")">
+                    <span class="icons icon-login"></span>
+                    <span class="text text-uppercase ml-sm-3 ml-2">@T("Account.Login")</span>
+                </b-button>
+                <b-button variant="outline-secondary" class="d-flex align-items-center justify-content-center py-2 w-100 mx-1 mb-2" href="@registerUrl">
+                    <span class="text text-uppercase">@T("Account.Register")</span>
+                </b-button>
+            </div>
+            <div class="text-center generalMarginSupporter">
+                @T("Account.Login.NewCustomerText")
+            </div>
+    }
+</div>
+@await Component.InvokeAsync("Widget", new { widgetZone = "header_links_after" })

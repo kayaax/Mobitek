@@ -1,0 +1,28 @@
+﻿@model IList<ProductOverviewModel>
+    @inject DisplayOrderHomePage order
+    @if (Model.Any())
+    {
+        <div class="product-grid bestsellers hp-section order-@order.HomePageBestSellers">
+            <h2 class="generalTitle page-title my-lg-5 my-3 text-center">@T("Bestsellers")</h2>
+            <div id="Bestsellers" class="swiper-container">
+                <div class="swiper-wrapper">
+                    @foreach (var item in Model)
+                    {
+                        @*<div class="col-xl-@order.Bs_Xl col-lg-@order.Bs_Lg col-md-@order.Bs_Md col-sm-@order.Bs_Sm col-@order.Bs_Col  product-container mb-2">
+                                <partial name="_ProductBox" model="item" />
+                            </div>*@
+                        <div class="swiper-slide product-container mb-2">
+                            <partial name="_ProductBoxListBestsellers" model="item" />
+                        </div>
+                    }
+                </div>
+                <div class="swiper-circle-next">
+                    <span class="linearicons-chevron-right"></span>
+                </div>
+                <div class="swiper-circle-prev">
+                    <span class="linearicons-chevron-left"></span>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    }

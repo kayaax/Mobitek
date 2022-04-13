@@ -1,0 +1,50 @@
+﻿<template id="menu-list">
+    <ul class="menu-list">
+        <li class="back"><span class="icons icon-arrow-left-circle"></span> @T("Mobile.Categories.Back")</li>
+        <menu-item v-for="option of options"
+                   :option="option">
+        </menu-item>
+    </ul>
+</template>
+
+<template id="menu-item">
+    <li class="menu-item"
+        v-if="option.IncludeInTopMenu"
+        :class="{ 'menu-item-parent -hasSubmenu' : option.SubCategories.length > 0, 'menu-item-gallery' : (option.GenericAttributes.find(function(key){if(key.Key == 'MegaMenu') return true})) }">
+        <a :href="'/' + option.SeName" data-show="@T("Mobile.Category.Show")">
+            <b-img-lazy v-if="option.GenericAttributes.find(function(key){if(key.Key == 'MenuShowImage') return true})" :src="option.ImageUrl"></b-img-lazy>
+            <span v-if="option.Icon !== null" class="category-icon"></span>
+            <span class="title">{{option.Name}} <span class="products" v-if="option.NumberOfProducts !== null ">({{option.NumberOfProducts}})</span></span>
+            <span v-if="option.FlagStyle" :class="'badge ' + option.FlagStyle">{{option.Flag}}</span>
+        </a>
+        <menu-list v-if="option.SubCategories.length > 0"
+                   v-bind:class="{'-visible -active -animation' : renderChildren}"
+                   :options="option.SubCategories">
+        </menu-list>
+    </li>
+</template>
+
+<script asp-location="Footer">
+    Vue.component('menu-list', {
+        template: '#menu-list',
+        props: ['options']
+    });
+
+    Vue.component('menu-item', {
+        template: '#menu-item',
+        props: ['option'],
+        data: function () {
+            return {
+                renderChildren: false
+            }
+        },
+        methods: {
+            showChildren: function () {
+                this.renderChildren = true;
+            },
+            hideChildren: function () {
+                this.renderChildren = false;
+            }
+        }
+    });
+</script>

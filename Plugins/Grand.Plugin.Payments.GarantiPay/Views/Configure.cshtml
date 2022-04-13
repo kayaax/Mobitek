@@ -1,0 +1,75 @@
+@{ // ReSharper disable once Razor.LayoutNotResolved
+    Layout = "_ConfigurePlugin"; 
+}
+@model Grand.Plugin.Payments.GarantiPay.Models.ConfigurationModel
+<form asp-controller="PaymentGarantiPay" asp-action="Configure" asp-area="Admin" method="post">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel light form-fit">
+                <div class="x_title">
+                    <div class="caption">
+                        <i class="fa fa-cogs"></i>
+                        @T("Plugins.Payment.GarantiPay.Configure")
+                    </div>
+                    <div class="actions">
+                        <div class="btn-group btn-group-devided">
+                            <button class="btn btn-success" type="submit" name="save"><i class="fa fa-check"></i> @T("Admin.Common.Save") </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="x_content form">
+                    <div class="form-horizontal">
+                        <div class="form-body">
+                            <div class="form-group">
+                                <div class="col-md-3 col-sm-3 text-right">
+                                    <admin-label asp-for="DescriptionText" class="control-label" />
+                                </div>
+                                <div class="col-md-9 col-sm-9">
+                                    <admin-input asp-for="DescriptionText" />
+                                    <span asp-validation-for="DescriptionText"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3 col-sm-3 text-right">
+                                    <admin-label asp-for="AdditionalFee" class="control-label" />
+                                </div>
+                                <div class="col-md-9 col-sm-9">
+                                    <admin-input asp-for="AdditionalFee" />
+                                    <span asp-validation-for="AdditionalFee"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3 col-sm-3 text-right">
+                                    <admin-label asp-for="AdditionalFeePercentage" class="control-label" />
+                                </div>
+                                <div class="col-md-9 col-sm-9">
+                                    <admin-input asp-for="AdditionalFeePercentage" />
+                                    <span asp-validation-for="AdditionalFeePercentage"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3 col-sm-3 text-right">
+                                    <admin-label asp-for="TestMode" class="control-label" />
+                                </div>
+                                <div class="col-md-9 col-sm-9">
+                                    <admin-input asp-for="TestMode" />
+                                    <span asp-validation-for="TestMode"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-3 col-sm-3 text-right">
+                                    <admin-label asp-for="IsInstallment" class="control-label" />
+                                </div>
+                                <div class="col-md-9 col-sm-9">
+                                    <admin-input asp-for="IsInstallment" />
+                                    <span asp-validation-for="IsInstallment"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

@@ -1,0 +1,64 @@
+﻿@model ProductDetailsModel
+<b-col xl="5" lg="4" md="12" cols="12" class="mt-md-0 mt-3 px-0">
+    <div class="gallery">
+        @if (Model.PictureModels.Count > 1)
+        {
+            <b-img-lazy id="main-product-img-@Model.Id" class="image main-image"
+                        src="@Model.DefaultPictureModel.ImageUrl"
+                        alt="@Model.DefaultPictureModel.AlternateText"
+                        title="@Model.DefaultPictureModel.Title" />
+            <div>
+                @foreach (var picture in Model.PictureModels)
+                {
+                    <img class="image thumb-image"
+                         src="@picture.ThumbImageUrl"
+                         alt="@picture.AlternateText"
+                         title="@picture.Title"
+                         data-src="@picture.ImageUrl"
+                         @@click="changeImg($event)" />
+                }
+            </div>
+        }
+        else
+        {
+            <b-img-lazy class="img-fluid"
+                        alt="@Model.DefaultPictureModel.AlternateText"
+                        src="@Model.DefaultPictureModel.ImageUrl"
+                        data-fullsize="@Model.DefaultPictureModel.FullSizeImageUrl"
+                        title="@Model.DefaultPictureModel.Title"
+                        itemprop="image"
+                        id="main-product-img-@Model.Id" />
+        }
+    </div>
+</b-col>
+@if (Model.PictureModels.Count > 1)
+{
+    <script asp-location="Footer">
+        var slider = document.querySelector('#ModalQuickView .gallery img.image.main-image+div');
+        var isDown = false;
+        var startY;
+        var scrollTop;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.classList.add('active');
+            startY = e.pageY - slider.offsetTop;
+            scrollTop= slider.scrollTop;
+        });
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.classList.remove('active');
+        });
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageY - slider.offsetTop;
+            const walk = (x - startY) * 4; //scroll-fast
+            slider.scrollTop = scrollTop - walk;
+        });
+    </script>
+}

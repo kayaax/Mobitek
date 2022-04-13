@@ -1,0 +1,222 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<Authors>Atilla Kaya</Authors>
+		<Company>Mobitek</Company>
+		<Copyright>Copyright © atilla kaya</Copyright>
+		<PackageProjectUrl>https://mobitek.com/</PackageProjectUrl>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<OutputPath>..\..\Grand.Web\Plugins\Payments.AllBank\</OutputPath>
+		<OutDir>$(OutputPath)</OutDir>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath>..\..\Grand.Web\Plugins\Payments.AllBank\</OutputPath>
+		<OutDir>$(OutputPath)</OutDir>
+	</PropertyGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<RemoveDir Directories="..\..\Grand.Web\Plugins\Payments.AllBank\refs" />
+	</Target>
+	<ItemGroup>
+		<None Remove="Content\banks\akbank.jpg" />
+		<None Remove="Content\banks\albaraka.jpg" />
+		<None Remove="Content\banks\anadolubank.jpg" />
+		<None Remove="Content\banks\cards.png" />
+		<None Remove="Content\banks\denizbank.jpg" />
+		<None Remove="Content\banks\finansbank.jpg" />
+		<None Remove="Content\banks\garanti.jpg" />
+		<None Remove="Content\banks\halkbank.jpg" />
+		<None Remove="Content\banks\hsbc.jpg" />
+		<None Remove="Content\banks\ingbank.jpg" />
+		<None Remove="Content\banks\isbankasi.jpg" />
+		<None Remove="Content\banks\kuveytturk.jpg" />
+		<None Remove="Content\banks\sekerbank.jpg" />
+		<None Remove="Content\banks\turkekonomibankasi.jpg" />
+		<None Remove="Content\banks\turkiyefinans.jpg" />
+		<None Remove="Content\banks\vakifbank.jpg" />
+		<None Remove="Content\banks\yapikredi.jpg" />
+		<None Remove="Content\banks\ziraatbankasi.jpg" />
+		<None Remove="Content\card.css" />
+		<None Remove="Content\imask.min.js" />
+		<None Remove="Views\OnePagePaymentInfo.cshtml" />
+		<None Remove="Views\Configure.cshtml" />
+		<None Remove="Views\PaymentBankOrder\Edit.cshtml" />
+		<None Remove="Views\PaymentBankOrder\List.cshtml" />
+		<None Remove="Views\PaymentBankOrder\_CreateOrUpdate.cshtml" />
+		<None Remove="Views\PaymentInfo.cshtml" />
+		<None Remove="Views\PaymentBankPos\List.cshtml" />
+		<None Remove="Views\PaymentBankPos\CategoryInstallment.cshtml" />
+		<None Remove="Views\PaymentBankPos\_CreateOrUpdate.cshtml" />
+		<None Remove="Views\PaymentBankPos\List.cshtml" />
+		<None Remove="Views\PaymentBankPos\Edit.cshtml" />
+		<None Remove="Views\PaymentBankPos\Create.cshtml" />
+		<None Remove="Views\PaymentBankPos\_CreateOrUpdate.TabInstallment.cshtml" />
+		<None Remove="Views\PaymentBankPos\_CreateOrUpdate.TabBank.cshtml" />
+		<None Remove="Views\PaymentBankBin\List.cshtml" />
+		<None Remove="Views\PaymentBankBin\Edit.cshtml" />
+		<None Remove="Views\PaymentBankBin\Create.cshtml" />
+		<None Remove="Views\PaymentBankBin\_CreateOrUpdate.cshtml" />
+		<None Remove="Views\VuePaymentInfo.cshtml" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="Content\banks\akbank.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\albaraka.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\anadolubank.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\cards.png">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\denizbank.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\finansbank.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\garanti.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\halkbank.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\hsbc.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\ingbank.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\isbankasi.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\kuveytturk.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\sekerbank.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\turkekonomibankasi.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\turkiyefinans.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\vakifbank.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\yapikredi.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\banks\ziraatbankasi.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\card.css">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Content\imask.min.js">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<None Remove="Views\_ViewImports.cshtml" />
+		<Content Include="Views\PaymentBankOrder\Edit.cshtml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentBankOrder\List.cshtml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentBankOrder\_CreateOrUpdate.cshtml">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentBankPos\_CreateOrUpdate.TabParameters.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\OnePagePaymentInfo.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\_ViewImports.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentConfigure\Configure.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentInfo.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentBankPos\List.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentBankPos\CategoryInstallment.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentBankPos\Edit.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentBankPos\Create.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentBankPos\_CreateOrUpdate.TabInstallment.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentBankPos\_CreateOrUpdate.TabBank.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentBankPos\_CreateOrUpdate.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentBankBin\List.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentBankBin\Edit.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentBankBin\Create.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Views\PaymentBankBin\_CreateOrUpdate.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<None Remove="logo.jpg" />
+		<Content Include="logo.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<None Remove="Content\banks\ipara.jpg" />
+		<Content Include="Content\banks\ipara.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<None Remove="Content\banks\iyzico.jpg" />
+		<Content Include="Content\banks\iyzico.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<None Remove="Content\banks\paytr.jpg" />
+		<Content Include="Content\banks\paytr.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<None Remove="Views\PaymentPaymentAllBankScripts.cshtml" />
+		<Content Include="Views\PaymentAllBankScripts.cshtml">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Grand.Api\Grand.Api.csproj">
+			<Private>false</Private>
+		</ProjectReference>
+		<ProjectReference Include="..\..\Grand.Core\Grand.Core.csproj">
+			<Private>false</Private>
+		</ProjectReference>
+		<ProjectReference Include="..\..\Grand.Domain\Grand.Domain.csproj">
+			<Private>false</Private>
+		</ProjectReference>
+		<ProjectReference Include="..\..\Grand.Framework\Grand.Framework.csproj">
+			<Private>false</Private>
+		</ProjectReference>
+		<ProjectReference Include="..\..\Grand.Services\Grand.Services.csproj">
+			<Private>false</Private>
+		</ProjectReference>
+		<ProjectReference Include="..\..\Grand.Web\Grand.Web.csproj">
+			<Private>false</Private>
+		</ProjectReference>
+
+	</ItemGroup>
+</Project>

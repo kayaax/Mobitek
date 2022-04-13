@@ -1,0 +1,9 @@
+﻿@model ProductDetailsModel
+@if (Model.AskQuestionEnabled)
+{
+    <button type="button" value="@T("Products.AskQuestion")" class="btn btn-outline-secondary ask-a-question-button" onclick="setLocation('@Url.RouteUrl("AskQuestion", new { productId = Model.Id })')" data-toggle="tooltip" data-placement="bottom" title="@T("Products.AskQuestion")">
+        <span class="lnr linearicons-bubble-question"></span>
+        <span class="btn-title">@T("Products.AskQuestion")</span>
+        <span class="sr-only">@T("Products.AskQuestion")</span>
+    </button>
+}

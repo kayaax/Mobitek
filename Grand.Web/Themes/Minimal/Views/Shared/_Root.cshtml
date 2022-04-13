@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "_Root.Head";   
+}
+@await Component.InvokeAsync("Widget", new { widgetZone = "body_start_html_tag_after" })
+<div id="app" v-cloak>
+    <div class="loader-container">
+        <div class="loader-5 center"><span></span></div>
+    </div>
+    <partial name="_Notifications" />
+    <partial name="_JavaScriptDisabledWarning" />
+    <partial name="_OldInternetExplorerWarning" />
+    <partial name="Header" />
+    <b-container :fluid="fluid" class="main-container">
+        @await Component.InvokeAsync("Widget", new { widgetZone = "content_before" })
+        @if (IsSectionDefined("Breadcrumb"))
+        {
+            @RenderSection("Breadcrumb")
+        }
+        @RenderBody()
+        @await Component.InvokeAsync("Widget", new { widgetZone = "content_after" })
+    </b-container>
+
+    <partial name="Footer" />
+    @*@await Component.InvokeAsync("Footer")*@
+    @await Component.InvokeAsync("EuCookieLaw")
+</div>
+<partial name="MenuVue" />
+<script asp-location="Footer">
+    AxiosCart.init('.cart-qty', '.wishlist-qty', '.flyout-cart');
+</script>
+@await Component.InvokeAsync("Widget", new { widgetZone = "body_end_html_tag_before" })

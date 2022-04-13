@@ -1,0 +1,69 @@
+﻿@model HeaderLinksModel
+@using System.Text.Encodings.Web
+@inject Grand.Core.IWebHelper webHelper
+@inject Grand.Domain.Customers.CustomerSettings customersettings
+@{
+    var registerUrl = Url.RouteUrl("Register", new { returnUrl = this.Context.Request.Query["returnUrl"] });
+}
+
+@await Component.InvokeAsync("Widget", new { widgetZone = "header_links_before" })
+@if (Model.IsAuthenticated)
+{
+    @await Component.InvokeAsync("AdminHeaderLinks")
+    <li class="nav-item">
+        <a class="d-flex align-items-center nav-link btn btn-outline-secondary" href="@Url.RouteUrl("CustomerInfo")">
+            <span class="lnr linearicons-user"></span>
+            <span class="text text-uppercase ml-3">@T("Account.MyAccount")</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="d-flex align-items-center nav-link btn btn-outline-secondary" href="@Url.RouteUrl("CustomerOrders")">
+            <span class="lnr linearicons-cart-full"></span>
+            <span class="text text-uppercase ml-3">@T("Account.CustomerOrders")</span>
+        </a>
+    </li>
+	} else 
+	{
+    <li class="nav-item sidebar-info d-inline-flex justify-content-center flex-wrap my-sm-3 my-2 w-100">
+        <h5 class="d-sm-flex d-none justify-content-center mb-3 w-100">@T("Account.Login.ReturningCustomer") / @T("SideBar.NewCustomer")</h5>
+        <button class="d-flex align-items-center nav-link btn btn-info btn-underline">
+            <span class="lnr linearicons-lock"></span>
+            <span class="text text-uppercase ml-sm-3 ml-2">@T("Account.Login")</span>
+        </button>
+        <a class="d-flex align-items-center nav-link btn btn-secondary btn-underline ml-3" href="@registerUrl">
+            <span class="text text-uppercase">@T("Account.Register")</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <form class="py-3" asp-route="Login" asp-route-returnurl="@Context.Request.Query["ReturnUrl"]" method="post" id="login-nav">
+            <div class="form-group">
+                @if (customersettings.UsernamesEnabled)
+                {
+                    <label class="col-form-label">@T("account.login.fields.username")</label>
+                    <input autofocus="autofocus" class="form-control username valid" data-val="true" data-val-username="@T("account.fields.username.notvalid")" data-val-required="@T("account.fields.username.required")" id="Username" name="Username" type="text" value="" required>
+                }
+                else
+                {
+                    <label class="col-form-label">@T("account.login.fields.email")</label>
+                    <input autofocus="autofocus" class="form-control email valid" data-val="true" data-val-email="@T("common.wrongemail")" data-val-required="@T("account.login.fields.email.required")" id="Email" name="Email" type="text" value="" required>
+                }
+            </div>
+            <div class="form-group">
+                <label class="col-form-label">Password</label>
+                <input class="form-control password valid" id="Password" name="Password" type="password">
+            </div>
+            <div class="w-100 text-center my-2">
+                <a class="h5 mb-0" asp-route="PasswordRecovery">@T("Account.Login.ForgotPassword")</a>
+            </div>
+            <div class="w-100 text-center button">
+                <button type="submit" class="btn btn-info">@T("Account.Login")</button>
+            </div>
+        </form>
+    </li>
+    <li class="nav-item">
+        <div class="user-panel-info">
+            @T("Account.Login.NewCustomerText")
+        </div>
+    </li>
+}
+@await Component.InvokeAsync("Widget", new { widgetZone = "header_links_after" })

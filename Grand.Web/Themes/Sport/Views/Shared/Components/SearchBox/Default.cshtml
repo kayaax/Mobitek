@@ -1,0 +1,82 @@
+﻿@model SearchBoxModel
+@using System.Text.Encodings.Web
+<div class="modal fade bg-white" id="SearchBoxModal" tabindex="-1" role="dialog" aria-labelledby="SearchBoxModalTitle" aria-hidden="true">
+    <div class="modal-close" data-dismiss="modal" aria-label="Close">
+        <span></span>
+    </div>
+    <div class="modal-dialog search-box-modal" role="document">
+        <div class="modal-content pt-xl-5 pt-lg-4 pt-md-4 pt-3 container">
+            <form asp-route="ProductSearch" method="get" id="small-search-box-form">
+                <input type="hidden" asp-for="Box" value="true" />
+                <label for="small-searchterms" class="sr-only">@T("Search.SearchBox.Tooltip")</label>
+                <span class="search-box-tooltip">What're you looking for?</span>
+                <div class="input-group flex-row">
+                    <input type="text" class="form-control search-box-text" id="small-searchterms" autocomplete="off" name="q" placeholder="@T("Search.SearchBox.Tooltip")">
+                    @if (Model.AvailableCategories.Any())
+                    {
+                        <select asp-for="SearchCategoryId" asp-items="Model.AvailableCategories" class="search-box-select custom-select input-group-addon"></select>
+                    }
+                    @await Component.InvokeAsync("Widget", new { widgetZone = "searchbox_before_search_button" })
+
+                    <div class="input-group-append">
+                        <button type="submit" class="btn search-box-button">
+                            <span class="sr-only">@T("Search.SearchBox.Tooltip")</span>
+                            <span class="lnr linearicons-magnifier"></span>
+                        </button>
+                    </div>
+                </div>
+                <ul class="advanced-search-results row">
+                    <li class="left-side col-md-6 col-12">
+                        <ul>
+                            <li class="categories-container">
+                                <a class="title">Categories</a>
+                                <div class="no-data">@T("search.noresultstextcategory")</div>
+                                <ul></ul>
+                            </li>
+                            <li class="manufacturers-container">
+                                <a href="@Url.RouteUrl("ManufacturerList")" class="title">Manufacturers</a>
+                                <div class="no-data">@T("search.noresultstextmanufacturer")</div>
+                                <ul></ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="right-side col-md-6 col-12">
+                        <a class="products-title title">Products</a>
+                        <div class="no-data">@T("search.noresultstext")</div>
+                        <ul class="products-container"></ul>
+                    </li>
+                    <li class="center-side col-12">
+                        <ul>
+                            <li class="blog-container mb-3">
+                                <a href="@Url.RouteUrl("Blog")" class="title">Blog</a>
+                                <div class="no-data">@T("search.noresultstextblog")</div>
+                                <ul></ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <script asp-location="Footer">
+                        $(document).ready(function () {
+                            @if (Model.AutoCompleteEnabled)
+                            {
+                                <text>
+                                SearchAction.autocomplete(@(Model.SearchTermMinimumLength.ToString()),
+                                    '@(Url.RouteUrl("ProductSearchAutoComplete"))',
+                                    '@(Model.ShowProductImagesInSearchAutoComplete)'
+                                );
+                                </text>
+                            }
+                            @if (Model.SearchTermMinimumLength > 0)
+                            {
+                                <text>
+                                SearchAction.init('@Html.Raw(JavaScriptEncoder.Default.Encode(T("Search.EnterSearchTerms").Text))');
+                                </text>
+                            }
+                        });
+                </script>
+
+                @await Component.InvokeAsync("Widget", new { widgetZone = "searchbox" })
+            </form>
+        </div>
+    </div>
+</div>

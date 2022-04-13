@@ -1,0 +1,31 @@
+﻿@model OmniBankPosModel
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+<admin-tabstrip name="bank-pos-edit">
+    <items>
+        <tabstrip-item text="@T("Plugins.AllBank.Admin.BankPos")" tab-index="0">
+            <content>
+                <div>
+                    @* ReSharper disable once Mvc.PartialViewNotResolved *@
+                    <partial name="~/Plugins/Payments.AllBank/Views/PaymentBankPos/_CreateOrUpdate.TabBank.cshtml" model="Model" />
+                </div>
+            </content>
+        </tabstrip-item>
+        <tabstrip-item text="@T("Plugins.AllBank.Admin.BankPos.BankPosParameter")" tab-index="1">
+            <content>
+                <div>
+                    @* ReSharper disable once Mvc.PartialViewNotResolved *@
+                    <partial name="~/Plugins/Payments.AllBank/Views/PaymentBankPos/_CreateOrUpdate.TabParameters.cshtml" model="Model" />
+                </div>
+            </content>
+        </tabstrip-item>
+        <tabstrip-item text="@T("Plugins.AllBank.Admin.BankPosInstallment")" tab-index="2">
+            <content>
+                <div>
+                    @* ReSharper disable once Mvc.PartialViewNotResolved *@
+                    <partial name="~/Plugins/Payments.AllBank/Views/PaymentBankPos/_CreateOrUpdate.TabInstallment.cshtml" model="Model" />
+                </div>
+            </content>
+        </tabstrip-item>
+    </items>
+</admin-tabstrip>

@@ -1,0 +1,31 @@
+﻿@model Grand.Plugin.Payments.GarantiPay.Models.BankPos.OmniBankPosModel
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+<admin-tabstrip name="bank-pos-edit">
+    <items>
+        <tabstrip-item text="@T("Plugins.AllBank.Admin.BankPos")" tab-index="0">
+            <content>
+                <div>
+                    @* ReSharper disable once Mvc.PartialViewNotResolved *@
+                    <partial name="~/Plugins/Payments.GarantiPay/Views/PaymentGarantiPayPos/_CreateOrUpdate.TabBank.cshtml" model="Model" />
+                </div>
+            </content>
+        </tabstrip-item>
+        <tabstrip-item text="@T("Plugins.GarantiPay.Admin.BankPos.BankPosParameter")" tab-index="1">
+            <content>
+                <div>
+                    @* ReSharper disable once Mvc.PartialViewNotResolved *@
+                    <partial name="~/Plugins/Payments.GarantiPay/Views/PaymentGarantiPayPos/_CreateOrUpdate.TabParameters.cshtml" model="Model" />
+                </div>
+            </content>
+        </tabstrip-item>
+        <tabstrip-item text="@T("Plugins.GarantiPay.Admin.BankPosInstallment")" tab-index="2">
+            <content>
+                <div>
+                    @* ReSharper disable once Mvc.PartialViewNotResolved *@
+                    <partial name="~/Plugins/Payments.GarantiPay/Views/PaymentGarantiPayPos/_CreateOrUpdate.TabInstallment.cshtml" model="Model" />
+                </div>
+            </content>
+        </tabstrip-item>
+    </items>
+</admin-tabstrip>

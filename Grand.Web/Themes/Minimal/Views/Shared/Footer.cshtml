@@ -1,0 +1,173 @@
+﻿@inject IPageHeadBuilder pagebuilder
+@inject IWorkContext workContext
+@inject IThemeContext themeContext
+
+@{ 
+    var themeName = themeContext.WorkingThemeName;
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, string.Format("~/Themes/{0}/Content/script/footer.min.js", themeName));
+}
+
+@await Component.InvokeAsync("NewsletterBox")
+<footer v-if="footer.Footer !== undefined" id="Footer" class="footer">
+    <div class="footer-top section">
+        <b-container>
+            <div class="item-row">
+                <b-col xl="6" lg="4" md="12">
+                    <div class="about-us block">
+                        <ul class="social-icons">
+                            <li v-if="footer.Footer.FacebookLink !== null">
+                                <b-link :href="footer.Footer.FacebookLink">
+                                    <span class="icons icon-social-facebook"></span>
+                                </b-link>
+                            </li>
+                            <li v-if="footer.Footer.TwitterLink !== null">
+                                <b-link :href="footer.Footer.TwitterLink">
+                                    <span class="icons icon-social-twitter"></span>
+                                </b-link>
+                            </li>
+                            <li v-if="footer.Footer.NewsEnabled">
+                                <b-link :href="'/news/rss/' + footer.Footer.WorkingLanguageId">
+                                    <span class="icons icon-bubbles"></span>
+                                </b-link>
+                            </li>
+                            <li v-if="footer.Footer.YoutubeLink !== null">
+                                <b-link :href="footer.Footer.YoutubeLink">
+                                    <span class="icons icon-social-youtube"></span>
+                                </b-link>
+                            </li>
+                            <li v-if="footer.Footer.InstagramLink !== null">
+                                <b-link :href="footer.Footer.InstagramLink">
+                                    <span class="icons icon-social-instagram"></span>
+                                </b-link>
+                            </li>
+                            <li v-if="footer.Footer.LinkedInLink !== null">
+                                <b-link :href="footer.Footer.LinkedInLink">
+                                    <span class="icons icon-social-linkedin"></span>
+                                </b-link>
+                            </li>
+                            <li v-if="footer.Footer.PinterestLink !== null">
+                                <b-link :href="footer.Footer.PinterestLink">
+                                    <span class="icons icon-social-pinterest"></span>
+                                </b-link>
+                            </li>
+                        </ul>
+                        <h6 class="title">@T("Footer.AboutUs")</h6>
+                        <ul class="info">
+                            <li v-if="footer.Footer.CompanyName !== null || footer.Footer.CompanyAddress !== null">
+                                <span class="icons icon-location-pin"></span>
+                                <span class="text">@T("Footer.CompanyName.Title") {{footer.Footer.CompanyName}}, {{footer.Footer.CompanyAddress}}</span>
+                            </li>
+                            <li v-if="footer.Footer.CompanyPhone !== null">
+                                <span class="icons icon-phone"></span>
+                                <span class="text">@T("Footer.Phone.Title") {{footer.Footer.CompanyPhone}}</span>
+                            </li>
+                            <li v-if="footer.Footer.CompanyHours !== null">
+                                <span class="icons icon-clock"></span>
+                                <span class="text">@T("Footer.Hour.Title") {{footer.Footer.CompanyHours}}</span>
+                            </li>
+                            <li v-if="footer.Footer.CompanyEmail !== null">
+                                <span class="icons icon-envelope-letter"></span>
+                                <span class="text">@T("Footer.Email.Title") {{footer.Footer.CompanyEmail}}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </b-col>
+                <b-col xl="3" lg="4" md="6">
+                    <h6 class="title">@T("Footer.Information")</h6>
+                    <ul>
+                        <li v-if="footer.Footer.SitemapEnabled">
+                            <b-link href="@Url.RouteUrl("Sitemap")">@T("Sitemap")</b-link>
+                        </li>
+                        <li v-if="footer.Footer.PrivacyPreference">
+                            <b-link id="btnPrivacyPreference" href="#" onclick="GetPrivacyPreference('@Url.RouteUrl("PrivacyPreference")'); return false;">@T("PrivacyPreference")</b-link>
+                        </li>
+                        <template v-if="footer.Footer.Topics !== undefined">
+                            <template v-for="topic in footer.Footer.Topics">
+                                <li v-if="topic.IncludeInFooterRow1">
+                                    <b-link :href="'/' + topic.SeName">{{topic.Name}}</b-link>
+                                </li>
+                            </template>
+                        </template>
+                        <li v-if="footer.Footer.NewsEnabled">
+                            <b-link href="@Url.RouteUrl("NewsArchive")">@T("News")</b-link>
+                        </li>
+                        <li v-if="footer.Footer.BlogEnabled">
+                            <b-link href="@Url.RouteUrl("Blog")">@T("Blog")</b-link>
+                        </li>
+                        <li v-if="footer.Footer.ForumEnabled">
+                            <b-link href="@Url.RouteUrl("Boards")">@T("Forum.Forums")</b-link>
+                        </li>
+                        <li v-if="footer.Footer.KnowledgebaseEnabled">
+                            <b-link href="@Url.RouteUrl("Knowledgebase")">@T("Knowledgebase")</b-link>
+                        </li>
+                        <li v-if="footer.Footer.NewProductsEnabled">
+                            <b-link href="@Url.RouteUrl("NewProducts")">@T("Products.NewProducts")</b-link>
+                        </li>
+                    </ul>
+                </b-col>
+                <b-col xl="3" lg="4" md="6">
+                    <h6 class="title">@T("Footer.MyAccount")</h6>
+                    <ul>
+                        <li>
+                            <b-link href="@Url.RouteUrl("CustomerInfo")">@T("Account.MyAccount")</b-link>
+                        </li>
+                        <li>
+                            <b-link href="@Url.RouteUrl("CustomerOrders")">@T("Account.CustomerOrders")</b-link>
+                        </li>
+                        <li>
+                            <b-link href="@Url.RouteUrl("CustomerAddresses")">@T("Account.CustomerAddresses")</b-link>
+                        </li>
+                        <li v-if="footer.Footer.ShoppingCartEnabled">
+                            <b-link href="@Url.RouteUrl("ShoppingCart")">@T("ShoppingCart")</b-link>
+                        </li>
+                        <li v-if="footer.Footer.WishlistEnabled">
+                            <b-link href="@Url.RouteUrl("Wishlist")">@T("Wishlist")</b-link>
+                        </li>
+                        <li v-if="footer.Footer.CompareProductsEnabled">
+                            <b-link href="@Url.RouteUrl("CompareProducts")">@T("Products.Compare.List")</b-link>
+                        </li>
+                        <li v-if="footer.Footer.RecentlyViewedProductsEnabled">
+                            <b-link href="@Url.RouteUrl("RecentlyViewedProducts")">@T("Products.RecentlyViewedProducts")</b-link>
+                        </li>
+                        <li v-if="footer.Footer.AllowCustomersToApplyForVendorAccount">
+                            <b-link href="@Url.RouteUrl("ApplyVendorAccount")">@T("Vendors.ApplyAccount")</b-link>
+                        </li>
+                        <template v-if="footer.Footer.Topics !== undefined">
+                            <template v-for="topic in footer.Footer.Topics">
+                                <li v-if="topic.IncludeInFooterRow2">
+                                    <b-link :href="'/' + topic.SeName">{{topic.Name}}</b-link>
+                                </li>
+                            </template>
+                        </template>
+                    </ul>
+                </b-col>
+            </div>
+        </b-container>
+    </div>
+    <div class="footer-bottom">
+        <b-container>
+            <div class="item-row section">
+                <b-col md="6" cols="12" class="pb-1 pt-1 flex-column text-lg-left text-center copyright">
+                    <span class="footer-disclaimer">@T("Content.CopyrightNotice", DateTime.Now.Year, "{{footer.Footer.StoreName}}")</span>
+                    <template v-if="footer.Footer.DisplayTaxShippingInfoFooter">
+                        <template v-if="footer.Footer.InclTax">
+                            <b-link href="@Url.RouteUrl("Topic", new { SeName = TopicSeNameConstants.Shippinginfo })">
+                                @T("Footer.TaxShipping.InclTax")
+                            </b-link>
+                        </template>
+                        <template v-else>
+                            <b-link href="@Url.RouteUrl("Topic", new { SeName = TopicSeNameConstants.Shippinginfo })">
+                                @T("Footer.TaxShipping.ExclTax")
+                            </b-link>
+                        </template>
+                    </template>
+                </b-col>
+                <b-col md="6" cols="12" class="pb-1 pt-1 text-center text-lg-right">
+                    <span>Shopping cart software by </span><a class="pr-1 text-success" href="https://grandnode.com/">GrandNode</a>™
+                </b-col>
+                @await Component.InvokeAsync("StoreThemeSelector")
+            </div>
+        </b-container>
+    </div>
+    @await Component.InvokeAsync("Widget", new { widgetZone = "footer" })
+</footer>

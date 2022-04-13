@@ -1,0 +1,188 @@
+﻿@model OnePageCheckoutModel
+@inject IWebHelper webHelper
+@using Grand.Web.Models.Checkout
+@using Grand.Core;
+@inject IPageHeadBuilder pagebuilder
+@{
+    Layout = "_ColumnsOne";
+
+    pagebuilder.AppendScriptParts(ResourceLocation.Footer, "~/Plugins/Misc.SinglePageCheckout/Scripts/plugin.onepagecheckout.js");
+
+    var storeLocation = webHelper.GetStoreLocation();
+
+    //title
+    pagebuilder.AddTitleParts(T("PageTitle.Checkout").Text);
+}
+@{
+    //step numbers
+    int billingAddressStepNumber = 1;
+    int shippingAddressStepNumber = 2;
+    int shippingMethodStepNumber = 3;
+    int paymentMethodStepNumber = 4;
+    int paymentInfoStepNumber = 5;
+    int confirmOrderStepNumber = 6;
+    if (!Model.ShippingRequired)
+    {
+        paymentMethodStepNumber = paymentMethodStepNumber - 2;
+        paymentInfoStepNumber = paymentInfoStepNumber - 2;
+        confirmOrderStepNumber = confirmOrderStepNumber - 2;
+    }
+    if (Model.DisableBillingAddressCheckoutStep)
+    {
+        shippingAddressStepNumber--;
+        shippingMethodStepNumber--;
+        paymentMethodStepNumber--;
+        paymentInfoStepNumber--;
+        confirmOrderStepNumber--;
+    }
+}
+@await Component.InvokeAsync("Widget", new { widgetZone = "opc_content_before" })
+<div class="modal-body row">
+    <div class="col-md-4">
+        <ol class="opc pl-0" id="checkout-steps">
+            <li id="opc-billing" class="tab-section allow active">
+                <div class="step-title card card-grey mb-1 text-left p-0 col-12 rounded-0">
+                    <div class="card-body p-2">
+                        <blockquote class="card-bodyquote">
+                            <span>@billingAddressStepNumber. @T("Checkout.BillingAddress")</span>
+                        </blockquote>
+                    </div>
+                </div>
+                <div id="checkout-step- billing" class="step mt-2 mb-2 a-item">
+                    <form id="co-billing-form" action="">
+                        <div id="checkout-billing-load">
+                        </div>
+                    </form>
+                    <script asp-location="Footer">
+                        Billing.init('#co-billing-form', '@(storeLocation)SinglePageCheckout/OpcReloadBilling/', '@(storeLocation)checkout/OpcSaveBilling/', @(Model.DisableBillingAddressCheckoutStep.ToString().ToLowerInvariant()));
+                        Billing.load(true);
+                    </script>
+                    <div class="col-12 buttons pb-2 pt-2 px-0 my-0" id="billing-buttons-container" style="display:none">
+                        <input type="button" title="@T(" Plugins.Misc.SinglePageCheckout.AddNewBillingAddress")" class="btn btn-info new-address-next-step-button" onclick="Billing.save()" value="@T(" Plugins.Misc.SinglePageCheckout.AddNewBillingAddress")" />
+                    </div>
+                </div>
+            </li>
+            @if (Model.ShippingRequired)
+            {
+                <li id="opc-shipping" class="tab-section allow active">
+                    <div class="step-title card card-grey mb-1 text-left p-0 col-12 rounded-0">
+                        <div class="card-body p-2">
+                            <blockquote class="card-bodyquote">
+                                <span>@shippingAddressStepNumber. @T("Checkout.ShippingAddress")</span>
+                            </blockquote>
+                        </div>
+                    </div>
+                    <div id="checkout-step-shipping col-12" class="step mt-2 mb-2 a-item">
+                        <form action="" id="co-shipping-form">
+                            <div id="checkout-shipping-load">
+                                @*shipping address content will be loaded here*@
+                            </div>
+                        </form>
+                        <script asp-location="Footer">
+                        Shipping.init('#co-shipping-form', '@(storeLocation)SinglePageCheckout/OpcReloadShipping/', '@(storeLocation)checkout/OpcSaveShipping/');
+                        Shipping.load(true);
+                        </script>
+                        <div class="col-12 buttons pb-2 pt-2 px-0 my-0" id="shipping-buttons-container" style="display:none">
+                            <input type="button" title="@T(" Plugins.Misc.SinglePageCheckout.AddNewShippingAddress")" class="btn btn-info new-address-next-step-button" onclick="Shipping.save()" value="@T(" Plugins.Misc.SinglePageCheckout.AddNewShippingAddress")" />
+                        </div>
+                    </div>
+                </li>
+            }
+        </ol>
+    </div>
+    <div class="col-md-8">
+        <ol class="opc pl-0" id="checkout-steps">
+            @if (Model.ShippingRequired)
+            {
+                <li id="opc-shipping-method" class="tab-section allow active" style="display:none">
+                    <div class="step-title card card-grey mb-1 text-left p-0 col-12 rounded-0">
+                        <div class="card-body p-2">
+                            <blockquote class="card-bodyquote">
+                                <span>@shippingMethodStepNumber. @T("Checkout.ShippingMethod")</span>
+                            </blockquote>
+                        </div>
+                    </div>
+                    <div id="checkout-step-shipping-method" class="step mt-2 mb-2 a-item">
+                        <form id="co-shipping-method-form" action="">
+                            <div id="checkout-shipping-method-load">
+                                @*shipping methods content will be loaded here*@
+                            </div>
+                        </form>
+                        <script asp-location="Footer">
+                        ShippingMethod.init('#co-shipping-method-form', '@(storeLocation)checkout/OpcSaveShippingMethod/', '@(storeLocation)SinglePageCheckout/OpcReloadShippingMethod/');
+                        ShippingMethod.load(true);
+                        </script>
+                    </div>
+                </li>
+            }
+            <li id="opc-payment-method" class="tab-section allow active" style="display:none">
+                <div class="step-title card card-grey mb-1 text-left p-0 col-12 rounded-0">
+                    <div class="card-body p-2">
+                        <blockquote class="card-bodyquote">
+                            <span>@paymentMethodStepNumber. @T("Checkout.PaymentMethod")</span>
+                        </blockquote>
+                    </div>
+                </div>
+                <div id="checkout-step-payment-method" class="step mt-2 mb-2 a-item">
+                    <form action="" id="co-payment-method-form">
+                        <div id="checkout-payment-method-load">
+                            @*payment methods content will be loaded here*@ Payment is not required
+                        </div>
+                    </form>
+                    <script asp-location="Footer">
+                        PaymentMethod.init('#co-payment-method-form', '@(storeLocation)checkout/OpcSavePaymentMethod/', '@(storeLocation)SinglePageCheckout/OpcReloadPaymentMethod/');
+                        PaymentMethod.load(true);
+                    </script>
+                </div>
+            </li>
+            <li id="opc-payment-info" class="tab-section allow active" style="display:none">
+                <div class="step-title card card-grey mb-1 text-left p-0 col-12 rounded-0">
+                    <div class="card-body p-2">
+                        <blockquote class="card-bodyquote">
+                            <span>@paymentInfoStepNumber. @T("Checkout.PaymentInfo")</span>
+                        </blockquote>
+                    </div>
+                </div>
+                <div id="checkout-step-payment-info" class="step mt-2 mb-2 a-item">
+                    <form action="" id="co-payment-info-form">
+                        <div id="checkout-payment-info-load">
+                            @*payment info content will be loaded here*@ Payment is not required
+                        </div>
+                    </form>
+                    <script asp-location="Footer">
+                        PaymentInfo.init('#co-payment-info-form', '@(storeLocation)SinglePageCheckout/OpcSavePaymentInfo/');
+                    </script>
+                </div>
+            </li>
+            <li id="opc-confirm-order" class="tab-section allow active">
+                <div class="step-title card card-grey mb-1 text-left p-0 col-12 rounded-0">
+                    <div class="card-body p-2">
+                        <blockquote class="card-bodyquote">
+                            <span>@confirmOrderStepNumber. @T("Checkout.ConfirmOrder")</span>
+                        </blockquote>
+                    </div>
+                </div>
+                <div id="checkout-step-confirm-order" class="step mt-2 mb-2 a-item">
+                    <div id="checkout-confirm-order-load">
+                    </div>
+                    <script asp-location="Footer">
+                        ConfirmOrder.init('@(storeLocation)checkout/OpcConfirmOrder/', '@(storeLocation)checkout/completed/', '@(storeLocation)SinglePageCheckout/OpcReloadConfirmOrder/');
+                    </script>
+                    <div class="col-12 buttons pt-1 pb-1 px-0 my-3" id="confirm-order-buttons-container">
+                        <input type="button" style="float: right;" class="btn btn-info confirm-checkout-step-button" onclick="PaymentInfo.save()" value="@T(" Common.Confirm")" />
+                        <span class="please-wait" id="confirm-order-please-wait" style="display: none">@T("Checkout.SubmittingOrder")</span>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<script asp-location="Footer">
+    Checkout.init('@(storeLocation)cart/');
+    $(document).ready(function () {
+        if ($("#billing-address-select").length > 0) {
+            Billing.newAddress(!$('#billing-address-select').val());
+        }
+    });
+</script>

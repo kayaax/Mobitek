@@ -1,0 +1,91 @@
+﻿@await Component.InvokeAsync("Widget", new { widgetZone = "header_menu_before" })
+<div class="Menu -horizontal" id="mainMenu">
+    <template v-if="MenuItems.DisplayHomePageMenu">
+        <ul>
+            <li class="menu-item">
+                <a href="@Url.RouteUrl("HomePage")">
+                    <span class="title">@T("HomePage")</span>
+                </a>
+            </li>
+        </ul>
+    </template>
+    <menu-list :options="CategoryItems"></menu-list>
+    <template v-if="MenuItems.Topics !== undefined && MenuItems.Topics.length > 0">
+        <ul class="other-list">
+            <li class="menu-item" v-for="item in MenuItems.Topics">
+                <a :href="'/' + item.SeName">
+                    <span class="title">{{item.Name}}</span>
+                </a>
+            </li>
+        </ul>
+    </template>
+    <template v-if="MenuItems.Manufacturers !== undefined && MenuItems.Manufacturers.length > 0">
+        <ul class="other-list">
+            <li class="-hasSubmenu">
+                <a>@T("Manufacturers.Menu")</a>
+                <ul>
+                    <li class="menu-item" v-for="item in MenuItems.Manufacturers">
+                        <a :href="'/' + item.SeName">
+                            <span class="title">{{item.Name}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </template>
+    <template v-if="MenuItems.NewProductsEnabled && MenuItems.DisplayNewProductsMenu">
+        <ul>
+            <li class="menu-item">
+                <a href="@Url.RouteUrl("NewProducts")">
+                    <span class="title">@T("Products.NewProducts")</span>
+                </a>
+            </li>
+        </ul>
+    </template>
+    <template v-if="MenuItems.DisplaySearchMenu">
+        <ul>
+            <li class="menu-item">
+                <a href="@Url.RouteUrl("ProductSearch")">
+                    <span class="title">@T("Search")</span>
+                </a>
+            </li>
+        </ul>
+    </template>
+    <template v-if="MenuItems.DisplayCustomerMenu">
+        <ul>
+            <li class="menu-item">
+                <a href="@Url.RouteUrl("CustomerInfo")">
+                    <span class="title">@T("Account.MyAccount")</span>
+                </a>
+            </li>
+        </ul>
+    </template>
+    <template v-if="MenuItems.BlogEnabled && MenuItems.DisplayBlogMenu">
+        <ul>
+            <li class="menu-item">
+                <a href="@Url.RouteUrl("Blog")">
+                    <span class="title">@T("Blog")</span>
+                </a>
+            </li>
+        </ul>
+    </template>
+    <template v-if="MenuItems.ForumEnabled && MenuItems.DisplayForumsMenu">
+        <ul>
+            <li class="menu-item">
+                <a href="@Url.RouteUrl("Boards")">
+                    <span class="title">@T("Forum.Forums")</span>
+                </a>
+            </li>
+        </ul>
+    </template>
+    <template v-if="MenuItems.DisplayContactUsMenu">
+        <ul>
+            <li class="menu-item">
+                <a href="@Url.RouteUrl("ContactUs")">
+                    <span class="title">@T("ContactUs")</span>
+                </a>
+            </li>
+        </ul>
+    </template>
+</div>
+@await Component.InvokeAsync("Widget", new { widgetZone = "header_menu_after" })

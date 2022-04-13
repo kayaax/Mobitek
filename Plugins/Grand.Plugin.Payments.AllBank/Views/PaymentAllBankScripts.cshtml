@@ -1,0 +1,5 @@
+﻿@inject IPageHeadBuilder pagebuilder
+@{ pagebuilder.AppendScriptParts(ResourceLocation.Head, "~/Plugins/Payments.AllBank/Content/imask.min.js", excludeFromBundle: true);
+    pagebuilder.AppendCssFileParts(ResourceLocation.Head, "~/Plugins/Payments.AllBank/Content/card.css", excludeFromBundle: true);
+    pagebuilder.AppendScriptParts(ResourceLocation.Head, "//cdn.jsdelivr.net/npm/sweetalert2@11", excludeFromBundle: true);
+}

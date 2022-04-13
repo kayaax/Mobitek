@@ -1,0 +1,80 @@
+﻿@model OmniBankPosModel
+<vc:admin-widget widget-zone="bank_pos_details_top" additional-data="Model" />
+<div class="form-horizontal">
+    <div class="form-body">
+        <div class="form-group">
+            <admin-label asp-for="Name" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="Name" />
+                <span asp-validation-for="Name"></span>
+            </div>
+        </div>
+         <div class="form-group">
+            <admin-label asp-for="SystemName" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="SystemName" />
+                <span asp-validation-for="SystemName"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="BankTypeId" />
+            <div class="col-md-9 col-sm-9">
+                <admin-select asp-for="BankTypeId" asp-items="@Model.AvailableBankTypeList" />
+                <span asp-validation-for="BankTypeId"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="PictureId" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="PictureId" />
+                <span asp-validation-for="PictureId"></span>
+            </div>
+        </div> 
+        <div class="form-group">
+            <admin-label asp-for="BankColor" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="BankColor" />
+                <span asp-validation-for="BankColor"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="BankImageId" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="BankImageId" />
+                <span asp-validation-for="BankImageId"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="IsActive" />
+            <div class="col-md-9 col-sm-9">
+                <label class="mt-checkbox mt-checkbox-outline control control-checkbox">
+                    <admin-input asp-for="IsActive" />
+                    <div class="control__indicator"></div>
+                </label>
+                <span asp-validation-for="IsActive"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="Primary" />
+            <div class="col-md-9 col-sm-9">
+                <label class="mt-checkbox mt-checkbox-outline control control-checkbox">
+                    <admin-input asp-for="Primary" />
+                    <div class="control__indicator"></div>
+                </label>
+                <span asp-validation-for="Primary"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="PrimaryBank" />
+            <div class="col-md-9 col-sm-9">
+                <label class="mt-checkbox mt-checkbox-outline control control-checkbox">
+                    <admin-input asp-for="PrimaryBank" />
+                    <div class="control__indicator"></div>
+                </label>
+                <span asp-validation-for="PrimaryBank"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<vc:admin-widget widget-zone="bank_pos_details_bottom" additional-data="Model" />

@@ -1,0 +1,24 @@
+﻿@model ShoppingCartLinksModel
+
+@if (Model.WishlistEnabled)
+{
+    <b-nav-item href="@Url.RouteUrl("Wishlist")">
+        <span class="icon-heart icons"></span>
+        <div class="qty-indicator wishlist-qty">@T("Wishlist.HeaderQuantity", Model.WishlistItems)</div>
+    </b-nav-item>
+}
+@if (Model.ShoppingCartEnabled)
+{
+
+    @if (Model.MiniShoppingCartEnabled)
+    {
+        <partial name="FlyoutShoppingCart" />
+    }
+    else
+    {
+        <b-nav-item href="@Url.RouteUrl("ShoppingCart")">
+            <span class="icon-basket icons"></span>
+            <div class="qty-indicator cart-qty">@T("ShoppingCart.HeaderQuantity", Model.ShoppingCartItems)</div>
+        </b-nav-item>
+    }
+}

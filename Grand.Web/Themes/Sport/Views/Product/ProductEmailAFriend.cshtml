@@ -1,0 +1,57 @@
+﻿@model ProductEmailAFriendModel
+@inject IPageHeadBuilder pagebuilder
+@{
+    Layout = "_ColumnsOne";
+
+    //title
+    pagebuilder.AddTitleParts(Model.ProductName);
+    pagebuilder.AddTitleParts(T("PageTitle.ProductEmailAFriend").Text);
+}
+<div class="page email-a-friend-page">
+    <div class="container">
+        <h2 class="text-center page-title generalTitle">@T("Products.EmailAFriend.Title")</h2>
+        <div class="card rounded-0">
+            <h4 class="card-header border-0 p-0"><a href="@Url.RouteUrl("Product", new { SeName = Model.ProductSeName })" class="product h4">@Model.ProductName</a></h4>
+            <div class="card-body pb-0">
+                @if (Model.SuccessfullySent)
+                {
+                    <section class="result">
+                        @Model.Result
+                    </section>
+                }
+                else
+                {
+                    <form asp-route="ProductEmailAFriend" method="post">
+                        <div asp-validation-summary="ModelOnly" class="message-error"></div>
+                        <div class="form-fields">
+                            <div class="form-group">
+                                <label asp-for="FriendEmail" class="col-form-label">@T("Products.EmailAFriend.FriendEmail"):</label>
+                                <input asp-for="FriendEmail" class="form-control friend-email" placeholder="@T("Products.EmailAFriend.FriendEmail.Hint")" />
+                                <span asp-validation-for="FriendEmail"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="YourEmailAddress" class="col-form-label">@T("Products.EmailAFriend.YourEmailAddress"):</label>
+                                <input asp-for="YourEmailAddress" class="form-control your-email" placeholder="@T("Products.EmailAFriend.YourEmailAddress.Hint")" />
+                                <span asp-validation-for="YourEmailAddress"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PersonalMessage" class="col-form-label">@T("Products.EmailAFriend.PersonalMessage"):</label>
+                                <textarea asp-for="PersonalMessage" rows="5" class="form-control your-email" placeholder="@T("Products.EmailAFriend.PersonalMessage.Hint")"></textarea>
+                                <span asp-validation-for="PersonalMessage"></span>
+                            </div>
+                            @if (Model.DisplayCaptcha)
+                            {
+                                <div class="captcha-box">
+                                    <captcha />
+                                </div>
+                            }
+                        </div>
+                        <div class="btn-group">
+                            <input type="submit" name="send-email" class="btn btn-info send-email-a-friend-button" value="@T("Products.EmailAFriend.Button")" />
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>

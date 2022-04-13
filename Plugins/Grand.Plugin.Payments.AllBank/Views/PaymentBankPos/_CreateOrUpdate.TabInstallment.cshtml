@@ -1,0 +1,198 @@
+﻿@model OmniBankPosModel
+@inject AdminAreaSettings adminAreaSettings
+@if (!string.IsNullOrEmpty(Model.Id))
+{
+<div class="panel panel-default">
+    <vc:admin-widget widget-zone="bank_pos_installment_top" additional-data="Model" />
+    <div class="panel-body">
+        <div id="bank-installment-grid"></div>
+    </div>
+    <vc:admin-widget widget-zone="bank_pos_installment_bottom" additional-data="Model" />
+</div>
+<script>
+$(document).ready(function () {
+    $("#bank-installment-grid").kendoGrid({
+        dataSource: {
+            transport: {
+                read: {
+                    url: "@Html.Raw(Url.Action("BankInstallmentList", "PaymentBankPos",new{bankPosId = Model.Id}))",
+                    type: "POST",
+                    dataType: "json",
+                    data: addAntiForgeryToken
+                },
+                update: {
+                    url:"@Html.Raw(Url.Action("BankPosInstallmentUpdate", "PaymentBankPos"))",
+                    type: "POST",
+                    dataType: "json",
+                    data: addAntiForgeryToken
+                },
+                destroy: {
+                    url: "@Html.Raw(Url.Action("BankPosInstallmentDelete", "PaymentBankPos"))",
+                    type: "POST",
+                    dataType: "json",
+                    data: addAntiForgeryToken
+                }
+            },
+            schema: {
+                data: "Data",
+                total: "Total",
+                errors: "Errors",
+                 model: {
+                        id: "Id",
+                        fields: {
+                            BankName: {editable: false, type: "string" },
+                            NumberOfInstallment: {editable: true, type: "number" },
+                            BankPosId:{editable:false, type:"string"},
+                            percentage: { editable: true,type: "number", validation: { required: true, min: 1}  }
+                           }
+                        }
+            },
+            requestEnd: function(e) {
+                if(e.type=="update") {
+                    this.read();
+                }
+            },
+            error: function(e) {
+                display_kendoui_grid_error(e);
+                // Cancel the changes
+                this.cancelChanges();
+            },
+            pageSize: [@(adminAreaSettings.DefaultGridPageSize)],
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: true
+        },
+        pageable: {
+            refresh: true,
+            pageSizes: [@(adminAreaSettings.GridPageSizes)],
+            buttonCount: 15
+        },
+        editable: {
+            confirmation: false,
+            mode: "inline"
+        },
+        scrollable: false,
+        columns: [{
+            field: "BankName",
+            title: "@T("Plugins.AllBank.Admin.BankPos.Field.Name")"                    
+        },                {
+            field: "NumberOfInstallment",
+            title: "@T("Plugins.AllBank.Admin.BankPos.Field.NumberOfInstallment")"
+        },{
+            field: "Percentage",
+            title: "@T("Plugins.AllBank.Admin.BankPos.Field.Percentage")"
+        },{
+          command: [{
+              name: "edit",
+              text: {
+                  edit: "@T("Admin.Common.Edit")",
+                  update: "@T("Admin.Common.Update")",
+                  cancel: "@T("Admin.Common.Cancel")"
+              }
+          }, {
+              name: "destroy",
+              text: "@T("Admin.Common.Delete")"
+          }],
+          width: 300
+      }]
+    });
+});
+</script>
+<p>
+    <strong>@T("Plugins.AllBank.Admin.BankPos.AddNew")</strong>
+</p>
+
+<script>
+
+    $(document).ready(function () {
+        $('#addBankPosInstallment').click(function () {
+            var numberOfInstallment = $("#@Html.FieldIdFor(model => model.AddBankInstallmentModel.NumberOfInstallment)").val();
+            var percentage = $("#@Html.FieldIdFor(model => model.AddBankInstallmentModel.Percentage)").val();
+            var bankId = $("#@Html.FieldIdFor(model => model.AddBankInstallmentModel.BankId)").val();
+
+            if (bankId == 0) {
+                alert('bank seçin');
+                return;
+            }
+
+            $('#addBankPosInstallment').attr('disabled', true);
+
+            var postData = {
+                numberOfInstallment: numberOfInstallment,
+                percentage: percentage,
+                bankId:bankId,
+                bankPosId :'@Model.Id',
+
+            };
+            addAntiForgeryToken(postData);
+
+            $.ajax({
+                cache: false,
+                type: "POST",
+                url: "@Url.Action("BankPosInstallmentAdd", "PaymentBankPos")",
+                data: postData,
+                success: function(data) {
+                    var grid = $("#bank-installment-grid");
+                    grid.data('kendoGrid').dataSource.read();
+                    $('#addBankPosInstallment').attr('disabled', false);
+                },
+                error: function (xhr) {
+                    alert(xhr.responseJSON.Errors);
+                    $('#addBankPosInstallment').attr('disabled', false);
+                }
+            });
+            $('#addBankPosInstallment').attr('disabled', false);
+        });
+    });
+</script>
+<div class="form-horizontal">
+    <vc:admin-widget widget-zone="bank-installment_details_top" additional-data="Model" />
+    <div class="form-body">
+        @if (!String.IsNullOrEmpty(Model.Id))
+        {
+            <div class="form-group">
+                <admin-label asp-for="Id" />
+                <div class="col-md-9 col-sm-9">
+                    <label class="control-label">@Model.Id</label>
+                </div>
+            </div>
+
+        }
+
+        <div class="form-group">
+            <admin-label asp-for="@Model.AddBankInstallmentModel.BankId" />
+            <div class="col-md-9 col-sm-9">
+                <admin-select asp-for="@Model.AddBankInstallmentModel.BankId" asp-items="@Model.AddBankInstallmentModel.AvailableBanks" />
+                <span asp-validation-for="@Model.AddBankInstallmentModel.BankId"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="@Model.AddBankInstallmentModel.NumberOfInstallment" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="@Model.AddBankInstallmentModel.NumberOfInstallment" />
+                <span asp-validation-for="@Model.AddBankInstallmentModel.NumberOfInstallment"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <admin-label asp-for="@Model.AddBankInstallmentModel.Percentage" />
+            <div class="col-md-9 col-sm-9">
+                <admin-input asp-for="@Model.AddBankInstallmentModel.Percentage" />
+                <span asp-validation-for="@Model.AddBankInstallmentModel.Percentage"></span>
+            </div>
+        </div>
+        <div class="form-actions">
+            <div class="offset-md-3 col-md-9 col-sm-9">
+                <input type="button" id="addBankPosInstallment" class="k-button" value="@T("Plugins.AllBank.Admin.BankPos.AddButton")" />
+            </div>
+        </div>
+
+    </div>
+</div>
+}
+else{
+<div class="note note-info">
+ @T("Plugins.AllBank.Admin.BankPos.SaveBeforeEdit")
+</div>
+
+}
+<vc:admin-widget widget-zone="bank-installment_details_bottom" additional-data="Model" />

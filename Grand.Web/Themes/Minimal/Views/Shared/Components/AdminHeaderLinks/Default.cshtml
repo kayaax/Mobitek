@@ -1,0 +1,25 @@
+﻿@model AdminHeaderLinksModel
+@if (Model.IsCustomerImpersonated || Model.DisplayAdminLink)
+{
+    @if (Model.IsCustomerImpersonated)
+    {
+            <b-button variant="outline-secondary" class="d-flex align-items-center justify-content-center py-2 w-100 mb-2" href="@Url.RouteUrl("Logout")" title="@T("Account.ImpersonatedAs.Finish.Hint")">
+                <span class="icons icon-lock"></span>
+                <span class="text text-uppercase ml-3">@string.Format(T("Account.ImpersonatedAs").Text, Model.ImpersonatedCustomerEmailUsername)</span>
+            </b-button>
+    }
+    @if (Model.DisplayAdminLink)
+    {
+            <b-button variant="outline-secondary" class="d-flex align-items-center justify-content-center py-2 w-100 mb-2" href="@Url.Content("~/Admin")">
+                <span class="icons icon-settings"></span>
+                <span class="text text-uppercase ml-3">@T("admin")</span>
+            </b-button>
+    }
+    @if (!string.IsNullOrEmpty(Model.EditPageUrl))
+    {
+            <b-button target="_blank" variant="outline-secondary" class="d-flex align-items-center justify-content-center py-2 w-100 mb-2" href="@Model.EditPageUrl">
+                <span class="icons icon-note"></span>
+                <span class="text text-uppercase ml-3">@T("edit")</span>
+            </b-button>
+    }
+}

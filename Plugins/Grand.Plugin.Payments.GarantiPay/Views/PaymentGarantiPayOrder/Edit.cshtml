@@ -1,0 +1,29 @@
+﻿@using Grand.Web.Areas.Admin.Extensions
+@model Grand.Plugin.Payments.GarantiPay.Models.BankOrder.BankOrderModel
+@{
+    //page title
+    ViewBag.Title = T("Plugins.GarantiPay.Admin.BankOrder.EditBankOrderDetails").Text;
+    // ReSharper disable once Razor.LayoutNotResolved
+    Layout = "_ConfigurePlugin";
+}
+<form asp-area="@Constants.AreaAdmin" asp-controller="PaymentGarantiPayOrder" asp-action="Edit" method="post">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="x_panel light form-fit">
+                <div class="x_title">
+                    <div class="caption">
+                        <i class="fa fa-credit-card"></i>
+                        @T("Plugins.GarantiPay.Admin.BankOrder.EditBankOrderDetails") - @Model.CustomerEmail
+                        <small><i class="fa fa-arrow-circle-left"></i>@Html.ActionLink(T("Plugins.GarantiPay.Admin.BankOrder.BackToList").Text, "List") </small>
+                    </div>
+                </div>
+                <div class="x_content form">
+                    @* ReSharper disable once Mvc.PartialViewNotResolved *@
+                    <partial name="~/Plugins/Payments.GarantiPay/Views/PaymentGarantiPayOrder/_CreateOrUpdate.cshtml" model="Model" />
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

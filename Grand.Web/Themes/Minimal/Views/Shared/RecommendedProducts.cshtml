@@ -1,0 +1,19 @@
+﻿    <template v-if="hpi.HomePageItems[0].RecommendedProducts.loading">
+        
+    </template>
+    <b-tab v-else-if="hpi.HomePageItems[0].RecommendedProducts.items[0] !== undefined" class="section" title="@T("HomePage.Recommended.Products")">
+        <div id="RecommendedProducts">
+            <div class="product-grid">
+                <b-col cols="12" class="px-0">
+                    <div class="item-row">
+                        <b-col xl="3" lg="3" md="4" sm="6" cols="6" v-for="Model in hpi.HomePageItems[0].RecommendedProducts.items.slice(0,hpi.HomePageItems[0].RecommendedProducts.ProductsToShow)" class="product-container mb-2">
+                            <partial name="_ProductBoxVue" />
+                        </b-col>
+                    </div>
+                    <div class="w-100 text-center" v-if="hpi.HomePageItems[0].RecommendedProducts.ProductsToShow >= 4">
+                        <b-button class="show-more-button" variant="outline-secondary" data-nomore="@T("Minimal.nomore.products")" @@click="hpi.loadMore($event, hpi.HomePageItems[0].RecommendedProducts.NumberOfProducts, hpi.HomePageItems[0].RecommendedProducts)">Show More</b-button>
+                    </div>
+                </b-col>
+            </div>
+        </div>
+    </b-tab>

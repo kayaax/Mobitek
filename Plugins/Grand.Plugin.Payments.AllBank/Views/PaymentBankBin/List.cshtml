@@ -1,0 +1,109 @@
+﻿@{ //page title
+     ViewBag.Title = T("Plugins.AllBank.Admin.BankBin").Text; 
+    // ReSharper disable once Razor.LayoutNotResolved
+    Layout = Constants.Layout_Admin;
+}
+@inject AdminAreaSettings adminAreaSettings
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel light form-fit">
+            <div class="x_title">
+                <div class="caption">
+                    <i class="fa fa-credit-card"></i>
+                    @T("Plugins.AllBank.Admin.BankBin")
+                </div>
+                <div class="actions btn-group btn-group-devided">
+                    <a href="@Url.Action("Create","PaymentBankBin")" class="btn green"><i class="fa fa-plus"></i><span class="d-none d-sm-inline"> @T("Admin.Common.AddNew") </span></a>
+                    <vc:admin-widget widget-zone="bankbin_list_buttons" additional-data="null" />
+                </div>
+            </div>
+            <div class="x_content form">
+                <div class="form-horizontal">
+                    <div class="form-body">
+                        <div class="x_content">
+                            <div id="bankBin-grid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function () {
+    $("#bankBin-grid").kendoGrid({
+        dataSource: {
+            transport: {
+                read: {
+                    url: "@Html.Raw(Url.Action("List", "PaymentBankBin"))",
+                    type: "POST",
+                    dataType: "json",
+                    data: addAntiForgeryToken
+                }
+            },
+            schema: {
+                data: "Data",
+                total: "Total",
+                errors: "Errors"
+            },
+            error: function(e) {
+                display_kendoui_grid_error(e);
+                // Cancel the changes
+                this.cancelChanges();
+            },
+            pageSize: [@(adminAreaSettings.DefaultGridPageSize)],
+            serverPaging: true,
+            serverFiltering: true,
+            serverSorting: true
+        },
+        pageable: {
+            refresh: true,
+            pageSizes: [@(adminAreaSettings.GridPageSizes)],
+            buttonCount: 15
+        },
+        editable: {
+            confirmation: false,
+            mode: "inline"
+        },
+        scrollable: false,
+        columns: [{
+            field: "BinNumber",
+            title: "@T("Plugins.AllBank.Admin.BankBin.Field.No")",
+            template: '<a class="k-link" href="Edit/#=Id#">#=kendo.htmlEncode(BinNumber)#</a>',
+        },
+            {
+            field: "BankName",
+            title: "@T("Plugins.AllBank.Admin.BankBin.Field.BankName")"
+        },
+        {
+            field: "CardType",
+            title: "@T("Plugins.AllBank.Admin.BankBin.Field.CardType")"
+        },
+        {
+            field: "CardAssociation",
+            title: "@T("Plugins.AllBank.Admin.BankBin.Field.CardAssociation")"
+        },
+        {
+            field: "CardFamilyName",
+            title: "@T("Plugins.AllBank.Admin.BankBin.Field.CardFamilyName")"
+        },
+        {
+            field: "BankCode",
+            title: "@T("Plugins.AllBank.Admin.BankBin.Field.BankCode")"
+        },
+        {
+            field: "BusinessCard",
+            title: "@T("Plugins.AllBank.Admin.BankBin.Field.BusinessCard")",
+             headerAttributes: { style: "text-align:center" },
+                    attributes: { style: "text-align:center" },
+                    template: '# if(BusinessCard) {# <i class="fa fa-check" aria-hidden="true" style="color:green"></i> #} else {# <i class="fa fa-times" aria-hidden="true" style="color:red"></i> #} #'
+        },
+        {
+            field: "Force3Ds",
+            title: "@T("Plugins.AllBank.Admin.BankBin.Field.Force3Ds")"
+            
+        }]
+    });
+});
+</script>
